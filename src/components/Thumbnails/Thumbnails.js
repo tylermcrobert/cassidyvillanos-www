@@ -3,15 +3,15 @@ import { RichText } from 'prismic-reactjs';
 import ProjectThumbnail from 'components/ProjectThumbnail/ProjectThumbnail';
 
 const Thumbnails = ({
-  doc, selectProject,
+  selectProject, projects,
 }) => (
   <div className="thumbnails">
-    { doc.results.map((result) => {
-      const { uid, data } = result;
+    { projects.map((result) => {
+      const { uid, title, thumbnail } = result;
       return (
         <ProjectThumbnail
-          title={RichText.asText(data.title)}
-          image={data.thumbnail.mobile.url}
+          title={RichText.asText(title)}
+          image={thumbnail.mobile.url}
           uid={uid}
           key={uid}
           selectProject={() => selectProject(uid)}
