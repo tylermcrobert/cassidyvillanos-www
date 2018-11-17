@@ -21,14 +21,14 @@ class App extends Component {
     const { doc } = this.state;
     if (doc) {
       return (
-        <div>
+        <div className="thumbnails">
           { doc.results.map((result) => {
             const { uid, data, last_publication_date: date } = result;
             return (
               <ProjectThumbnail
                 date={date}
                 title={RichText.asText(data.title)}
-                image={data.images[0].image.mobile.url}
+                image={data.thumbnail.mobile.url}
                 description={RichText.render(data.description)}
                 uid={uid}
                 key={uid}
