@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import prismicConfig from 'prismic-config';
 import Prismic from 'prismic-javascript';
-import { RichText } from 'prismic-reactjs';
-import ProjectThumbnail from 'components/ProjectThumbnail/ProjectThumbnail';
+import Thumbnails from 'components/Thumbnails/Thumbnails';
 import 'styles/reset.css';
 import './App.scss';
 
 class App extends Component {
   state = {
     doc: null,
+    selectedProject: null,
   }
+
   componentDidMount() {
     Prismic.api(prismicConfig.apiEndpoint).then((api) => {
       api.query(Prismic.Predicates.at('document.type', 'project')).then((doc) => {
@@ -17,25 +18,28 @@ class App extends Component {
       });
     });
   }
+
+  selectProject = (uid) => {
+    this.setState({ selectedProject: uid });
+  }
+
   render() {
-    const { doc } = this.state;
+    const { doc, selectedProject } = this.state;
     if (doc) {
       return (
-        <>
-          <h1 className="title">Cassidy Villanos</h1>
-          <div className="thumbnails">
-            { doc.results.map((result) => {
-            const { uid, data } = result;
-            return (
-              <ProjectThumbnail
-                title={RichText.asText(data.title)}
-                image={data.thumbnail.mobile.url}
-                uid={uid}
-                key={uid}
-              />);
-          })}
-          </div>
-        </>
+        selectedProject
+          ? (
+            <div>
+              <h1>{selectedProject}</h1>
+              <div onClick={() => this.selectProject(null)}>[ close ]</div>
+            </div>
+          ) : (
+            <>
+              <h1 className="title">Cassidy Villanos</h1>
+              <Thumbnails doc={doc} selectProject={this.selectProject} />
+              {selectedProject}
+            </>
+          )
       );
     }
     return (

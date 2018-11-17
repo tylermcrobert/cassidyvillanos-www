@@ -2,9 +2,9 @@ import React from 'react';
 import './ProjectThumbnail.scss';
 
 const ProjectThumbnail = ({
-  title, image,
+  title, image, selectProject,
 }) => (
-  <div className="thumbnails__thumbnail">
+  <div className="thumbnails__thumbnail" onClick={selectProject}>
     <div>
       <img src={image} alt={`${title} — Cassidy Villanos`} />
     </div>
