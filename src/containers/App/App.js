@@ -21,20 +21,21 @@ class App extends Component {
     const { doc } = this.state;
     if (doc) {
       return (
-        <div className="thumbnails">
-          { doc.results.map((result) => {
-            const { uid, data, last_publication_date: date } = result;
+        <>
+          <h1 className="title">Cassidy Villanos</h1>
+          <div className="thumbnails">
+            { doc.results.map((result) => {
+            const { uid, data } = result;
             return (
               <ProjectThumbnail
-                date={date}
                 title={RichText.asText(data.title)}
                 image={data.thumbnail.mobile.url}
-                description={RichText.render(data.description)}
                 uid={uid}
                 key={uid}
               />);
           })}
-        </div>
+          </div>
+        </>
       );
     }
     return (
