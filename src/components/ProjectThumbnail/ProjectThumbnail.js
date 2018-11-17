@@ -1,14 +1,16 @@
 import React from 'react';
+import './ProjectThumbnail.css';
 
 const ProjectThumbnail = ({
-  title, image, date, description,
+  title, image, description,
 }) => (
-  <ul>
-    <li>Title: <h1>{title}</h1></li>
-    <li><img src={image} alt={`${title} — Cassidy Villanos`} /></li>
-    <li>date: {date}</li>
-    <li>description: {description}</li>
-  </ul>
+  <div className="thumbnails__thumbnail">
+    <h1>{title}</h1>
+    <div>
+      <img src={image} alt={`${title} — Cassidy Villanos`} />
+    </div>
+    <div>{description}</div>
+  </div>
 );
 
 ProjectThumbnail.defaultProps = {
