@@ -4,7 +4,7 @@ import Prismic from 'prismic-javascript';
 import { RichText } from 'prismic-reactjs';
 import ProjectThumbnail from 'components/ProjectThumbnail/ProjectThumbnail';
 import 'styles/reset.css';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   state = {
