@@ -8,7 +8,7 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    selectedProject: null,
+    selectedProject: 'leaf-me-alone',
     projects: null,
   }
 
@@ -33,13 +33,24 @@ class App extends Component {
     this.setState({ selectedProject: uid });
   }
 
+  getIndex = () =>
+    this.state.projects
+      .map(proj => proj.uid)
+      .indexOf(this.state.selectedProject)
+
   render() {
     const { selectedProject, projects } = this.state;
     if (projects) {
+      const index = this.getIndex();
       return (
         selectedProject
           ? (
-            <Viewer selectProject={this.selectProject} />
+            <Viewer
+              index={index}
+              mainImage={projects[index].thumbnail.laptop}
+              title={projects[index].title}
+              selectProject={this.selectProject}
+            />
           ) : (
             <>
               <h1 className="title">Cassidy Villanos</h1>
