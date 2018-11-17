@@ -8,7 +8,7 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    selectedProject: 'leaf-me-alone',
+    selectedProject: null,
     projects: null,
   }
 
@@ -29,14 +29,14 @@ class App extends Component {
     });
   }
 
-  selectProject = (uid) => {
-    this.setState({ selectedProject: uid });
-  }
-
   getIndex = () =>
     this.state.projects
       .map(proj => proj.uid)
       .indexOf(this.state.selectedProject)
+
+  selectProject = (uid) => {
+    this.setState({ selectedProject: uid });
+  }
 
   render() {
     const { selectedProject, projects } = this.state;
