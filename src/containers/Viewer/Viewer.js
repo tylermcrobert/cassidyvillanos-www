@@ -8,7 +8,7 @@ export default class Viewer extends React.Component {
   }
   render() {
     const {
-      selectProject, title, index, mainImage,
+      selectProject, title, index, mainImage, description,
     } = this.props;
     const titleVal = RichText.asText(title);
     return (
@@ -17,6 +17,9 @@ export default class Viewer extends React.Component {
           <h1>
             ⟵ {index + 1}. {RichText.asText(title)} ⟶
           </h1>
+          <div className="viewer__desc">
+            {RichText.render(description)}
+          </div>
           <div className="viewer__close" onClick={() => selectProject(null)}>
             [ close ]
           </div>

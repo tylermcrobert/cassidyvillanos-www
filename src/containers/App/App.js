@@ -17,11 +17,13 @@ class App extends Component {
       api.query(Prismic.Predicates.at('document.type', 'project')).then((doc) => {
         this.setState({
           projects: doc.results.map((result) => {
-            const { uid, data } = result;
+            const { uid } = result;
+            const { title, thumbnail, description } = result.data;
             return {
               uid,
-              title: data.title,
-              thumbnail: data.thumbnail,
+              title,
+              thumbnail,
+              description,
             };
           }),
         });
@@ -49,6 +51,7 @@ class App extends Component {
               index={index}
               mainImage={projects[index].thumbnail.laptop}
               title={projects[index].title}
+              description={projects[index].description}
               selectProject={this.selectProject}
             />
           ) : (

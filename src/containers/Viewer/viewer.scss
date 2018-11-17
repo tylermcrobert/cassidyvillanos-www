@@ -5,6 +5,11 @@
     text-align: center;
   }
 
+  &__desc {
+    font-size: .8em;
+    width: 75%;
+    margin: 1em auto;
+  }
   &__image {
     img {
       width: 100%;
