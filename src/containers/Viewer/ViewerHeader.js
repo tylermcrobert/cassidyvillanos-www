@@ -1,5 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
+import leadingZero from 'util/leadingZero';
 
 const ViewerHeader = ({
   index, title, description, selectProject,
@@ -8,9 +9,9 @@ const ViewerHeader = ({
     <div className="viewer__header__title">
       <h1>⟵</h1>
       <h1>
-        {`0${index + 1}. ${RichText.asText(title)}`}
+        {`${leadingZero(index + 1)}. ${RichText.asText(title)}`}
         <div className="viewer__close" onClick={() => selectProject(null)}>
-                  ✕
+          ✕
         </div>
       </h1>
       <h1>⟶</h1>
