@@ -33,6 +33,8 @@ $padding: 20px;
   }
 
   &__imageContainer {
+    background: black;
+    color: white;
     height: 100vh;
     box-sizing: border-box;
     padding: ($padding* 1.5) $padding $padding $padding;
