@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import prismicConfig from 'prismic-config';
 import Prismic from 'prismic-javascript';
-import Thumbnails from 'components/Thumbnails/Thumbnails';
+import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import 'styles/reset.css';
 import './App.scss';
@@ -60,7 +60,7 @@ class App extends Component {
                 selectProject={this.selectProject}
               />
             ) : (
-              <Thumbnails projects={projects} selectProject={this.selectProject} />
+              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
             )}
         </>
       );

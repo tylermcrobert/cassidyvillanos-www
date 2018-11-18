@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProjectThumbnail.scss';
+import './Thumbnail.scss';
 
 const ProjectThumbnail = ({
   title, image, selectProject,

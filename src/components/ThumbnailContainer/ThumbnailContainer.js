@@ -1,6 +1,7 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
-import ProjectThumbnail from 'components/ProjectThumbnail/ProjectThumbnail';
+import Thumbnail from 'components/Thumbnail/Thumbnail';
+import './ThumbnailContainer.scss';
 
 const Thumbnails = ({
   selectProject, projects,
@@ -15,7 +16,7 @@ const Thumbnails = ({
       return null;
     };
     return (
-      <ProjectThumbnail
+      <Thumbnail
         title={RichText.asText(title)}
         image={getThumbnail()}
         uid={uid}
