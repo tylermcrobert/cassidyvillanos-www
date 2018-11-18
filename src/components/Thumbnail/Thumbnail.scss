@@ -1,9 +1,17 @@
-.thumbnails__thumbnail {
+@import 'styles/breakpoints.scss';
+
+
+
+  .thumbnails__thumbnail {
   padding: 2%;
   margin: 10px auto;
   box-sizing: border-box;
   cursor: pointer;
-  flex-basis: 50%;
+  flex-basis: 100%;
+
+  @include breakpoint (sm) {
+    flex-basis: 50%;
+  }
 
   img {
     width: 100%;
