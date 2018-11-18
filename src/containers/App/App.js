@@ -63,7 +63,6 @@ class App extends Component {
               <Thumbnails projects={projects} selectProject={this.selectProject} />
             )}
         </>
-
       );
     }
     return (

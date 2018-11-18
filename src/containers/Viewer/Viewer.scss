@@ -1,15 +1,31 @@
 .viewer {
   width: 100%;
 
-  &__title {
+  &__close {
     text-align: center;
+  }
+
+  &__header {
+    margin: 2em 15px;
+
+    &__title {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+
+    h1{
+      font-size:1.25em;
+    }
   }
 
   &__desc {
     font-size: .8em;
-    width: 75%;
+    max-width: 30em;
     margin: 1em auto;
   }
+
   &__image {
     img {
       width: 100%;

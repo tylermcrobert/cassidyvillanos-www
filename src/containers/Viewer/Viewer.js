@@ -17,10 +17,14 @@ export default class Viewer extends React.Component {
 
     return (
       <div className="viewer">
-        <div className="viewer__title">
-          <h1>
-            ⟵ {index + 1}. {RichText.asText(title)} ⟶
-          </h1>
+        <div className="viewer__header">
+          <div className="viewer__header__title">
+            <h1>⟵</h1>
+            <h1>
+              0{index + 1}. {RichText.asText(title)}
+            </h1>
+            <h1>⟶</h1>
+          </div>
           <div className="viewer__desc">
             {RichText.render(description)}
           </div>
