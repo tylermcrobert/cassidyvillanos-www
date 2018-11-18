@@ -8,25 +8,28 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    selectedProject: null,
+    selectedProject: 'leaf-me-alone',
     projects: null,
   }
 
   componentDidMount() {
     Prismic.api(prismicConfig.apiEndpoint).then((api) => {
-      api.query(Prismic.Predicates.at('document.type', 'project')).then((doc) => {
-        this.setState({
-          projects: doc.results.map((result) => {
-            const { uid } = result;
-            const { title, thumbnail, description } = result.data;
-            return {
-              uid,
-              title,
-              thumbnail,
-              description,
-            };
-          }),
-        });
+      api.getSingle('site').then((doc) => {
+        const ids = doc.data.projects.map(proj => proj.project.id);
+        this.getProjects(api, ids);
+      });
+    });
+  }
+
+  getProjects = (api, ids) => {
+    api.getByIDs(ids).then((doc) => {
+      this.setState({
+        projects: doc.results.map(result => ({
+          uid: result.uid,
+          title: result.data.title,
+          description: result.data.description,
+          images: result.data.images.map(img => img.image),
+        })),
       });
     });
   }
@@ -45,22 +48,22 @@ class App extends Component {
     if (projects) {
       const index = this.getIndex();
       return (
-        selectedProject
-          ? (
-            <Viewer
-              index={index}
-              mainImage={projects[index].thumbnail.laptop}
-              title={projects[index].title}
-              description={projects[index].description}
-              selectProject={this.selectProject}
-            />
-          ) : (
-            <>
-              <h1 className="title">Cassidy Villanos</h1>
+        <>
+          <h1 className="title">Cassidy Villanos</h1>
+          {selectedProject
+            ? (
+              <Viewer
+                index={index}
+                images={projects[index].images}
+                title={projects[index].title}
+                description={projects[index].description}
+                selectProject={this.selectProject}
+              />
+            ) : (
               <Thumbnails projects={projects} selectProject={this.selectProject} />
-              {selectedProject}
-            </>
-          )
+            )}
+        </>
+
       );
     }
     return (

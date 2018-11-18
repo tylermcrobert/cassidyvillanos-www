@@ -4,20 +4,31 @@ import ProjectThumbnail from 'components/ProjectThumbnail/ProjectThumbnail';
 
 const Thumbnails = ({
   selectProject, projects,
-}) => (
-  <div className="thumbnails">
-    { projects.map((result) => {
-      const { uid, title, thumbnail } = result;
-      return (
-        <ProjectThumbnail
-          title={RichText.asText(title)}
-          image={thumbnail.mobile.url}
-          uid={uid}
-          key={uid}
-          selectProject={() => selectProject(uid)}
-        />);
-    })}
-  </div>
-);
+}) => {
+  const thumbnails = projects.map((result) => {
+    const { uid, title } = result;
+    const getThumbnail = () => {
+      const img = result.images[0];
+      if (img) {
+        return (img.mobile) ? img.mobile.url : img.url;
+      }
+      return null;
+    };
+    return (
+      <ProjectThumbnail
+        title={RichText.asText(title)}
+        image={getThumbnail()}
+        uid={uid}
+        key={uid}
+        selectProject={() => selectProject(uid)}
+      />);
+  });
+
+  return (
+    <div className="thumbnails">
+      {thumbnails}
+    </div>
+  );
+};
 
 export default Thumbnails;

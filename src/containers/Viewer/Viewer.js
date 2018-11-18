@@ -4,13 +4,17 @@ import './Viewer.scss';
 
 export default class Viewer extends React.Component {
   state = {
-    doc: null,
+    slideIndex: 0,
   }
   render() {
     const {
-      selectProject, title, index, mainImage, description,
+      selectProject, title, index, images, description,
     } = this.props;
     const titleVal = RichText.asText(title);
+    const imageList = images.map(img => (
+      <img src={img.url} alt={`${titleVal} - Cassidy Villanos`} />
+    ));
+
     return (
       <div className="viewer">
         <div className="viewer__title">
@@ -25,7 +29,7 @@ export default class Viewer extends React.Component {
           </div>
         </div>
         <div className="viewer__image">
-          <img src={mainImage.url} alt={`${titleVal} - Cassidy Villanos`} />
+          {imageList}
         </div>
       </div>
     );
