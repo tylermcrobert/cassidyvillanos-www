@@ -8,7 +8,7 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    selectedProject: 'leaf-me-alone',
+    selectedProject: null,
     projects: null,
   }
 
