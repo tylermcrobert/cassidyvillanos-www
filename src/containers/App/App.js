@@ -41,6 +41,7 @@ class App extends Component {
 
   selectProject = (uid) => {
     this.setState({ selectedProject: uid });
+    window.scrollTo(0, 0);
   }
 
   render() {

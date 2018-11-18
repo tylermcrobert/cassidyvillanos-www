@@ -34,17 +34,21 @@ $padding: 20px;
 
   &__imageContainer {
     height: 100vh;
-    background: black;
     box-sizing: border-box;
     padding: ($padding* 1.5) $padding $padding $padding;
     overflow: hidden;
-    color: white;
     display: flex;
     flex-direction: column;
 
     &__text {
       text-align: center;
       padding-top: $padding;
+      user-select: none;
+      cursor: pointer;
+
+      span {
+        padding: 0 .75em;
+      }
     }
 
     &__image{
@@ -56,6 +60,11 @@ $padding: 20px;
       width: 100%;
       height: 100%;
       object-fit: contain;
+      display: none;
+
+      &.-active {
+        display: block;
+      }
     }
   }
 }
