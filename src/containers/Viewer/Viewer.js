@@ -11,6 +11,7 @@ export default class Viewer extends React.Component {
     const {
       selectProject, title, index, images, description,
     } = this.props;
+    const { slideIndex } = this.state;
     const titleVal = RichText.asText(title);
     const imageList = images.map(img => (
       <img src={img.url} key={img.url} alt={`${titleVal} - Cassidy Villanos`} />
@@ -34,8 +35,13 @@ export default class Viewer extends React.Component {
           </div>
 
         </div>
-        <div className="viewer__image">
-          {imageList}
+        <div className="viewer__imageContainer">
+          <div className="viewer__imageContainer__image">
+            {imageList[slideIndex]}
+          </div>
+          <div className="viewer__imageContainer__text">
+            ⟵ {slideIndex + 1} / {imageList.length} ⟶
+          </div>
         </div>
       </div>
     );
