@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import getImageSize from 'util/getImageSize';
 import { RichText } from 'prismic-reactjs';
 import ViewerHeader from './ViewerHeader';
 import ViewerCarousel from './ViewerCarousel';
@@ -34,10 +35,11 @@ export default class Viewer extends React.Component {
     } = this.props;
     const { slideIndex } = this.state;
     const titleVal = RichText.asText(title);
+
     const imageList = images.map((img, i) => (
       <img
         className={i === slideIndex ? '-active' : ''}
-        src={img.url}
+        src={getImageSize(img, 'laptop')}
         key={img.url}
         alt={`${titleVal} - Cassidy Villanos`}
       />
