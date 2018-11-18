@@ -10,13 +10,13 @@ const ViewerHeader = ({
       <h1>⟵</h1>
       <h1>
         {`${leadingZero(index + 1)}. ${RichText.asText(title)}`}
-        <div className="viewer__close" onClick={() => selectProject(null)}>
+        <div className="viewer__header__close" onClick={() => selectProject(null)}>
           ✕
         </div>
       </h1>
       <h1>⟶</h1>
     </div>
-    <div className="viewer__desc">
+    <div className="viewer__header__desc">
       {RichText.render(description)}
     </div>
   </div>);

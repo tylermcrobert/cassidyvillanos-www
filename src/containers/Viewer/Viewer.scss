@@ -10,26 +10,27 @@ $padding: 20px;
       display: flex;
       width: 100%;
       justify-content: space-between;
+
+      h1 {
+        font-size: 1.25em;
+      }
     }
 
-    h1 {
-      font-size: 1.25em;
+    &__close {
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      margin-left: 0.5em;
+      top: 0.06em;
+      cursor: pointer;
     }
-  }
 
-  &__close {
-    text-align: center;
-    display: inline-block;
-    position: relative;
-    margin-left: 0.5em;
-    top: 0.06em;
-    cursor: pointer;
-  }
-
-  &__desc {
-    max-width: 25em;
-    margin: 0.5em auto;
-    letter-spacing: 0.01em;
+    &__desc {
+      max-width: 25em;
+      margin: 0.5em auto;
+      letter-spacing: 0.01em;
+      text-align: center
+    }
   }
 
   &__imageContainer {
@@ -37,7 +38,7 @@ $padding: 20px;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: ($padding* 1.5) $padding $padding $padding;
+    padding: ($padding * 1.5) $padding $padding $padding;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -49,11 +50,11 @@ $padding: 20px;
       cursor: pointer;
 
       span {
-        padding: 0 .75em;
+        padding: 0 0.75em;
       }
     }
 
-    &__image{
+    &__image {
       flex: 1;
       overflow: hidden;
     }
