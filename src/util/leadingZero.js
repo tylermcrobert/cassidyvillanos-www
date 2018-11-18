@@ -1,3 +1,3 @@
-const leadingZero = num => `00${num}`.slice(-2);
+const leadingZero = num => num.toString().padStart(2, 0);
 
 export default leadingZero;
