@@ -1,14 +1,12 @@
 @import 'styles/breakpoints.scss';
+@import 'styles/variables.scss';
 
-
-
-  .thumbnails__thumbnail {
-  padding: 2%;
+.thumbnails__thumbnail {
+  padding: $padding;
   margin: 10px auto;
   box-sizing: border-box;
   cursor: pointer;
   flex-basis: 100%;
-
   @include breakpoint (sm) {
     flex-basis: 50%;
   }

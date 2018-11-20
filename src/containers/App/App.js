@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     selectedProject: null,
     projects: null,
+    viewerIsOpen: false,
   }
 
   componentDidMount() {
@@ -40,30 +41,28 @@ class App extends Component {
       .indexOf(this.state.selectedProject)
 
   selectProject = (uid) => {
-    this.setState({ selectedProject: uid });
+    this.setState({ selectedProject: uid, viewerIsOpen: true });
     // window.scrollTo(0, 0);
   }
 
+  closeViewer = () => {
+    this.setState({ viewerIsOpen: false });
+  }
+
   render() {
-    const { selectedProject, projects } = this.state;
+    const { selectedProject, projects, viewerIsOpen } = this.state;
     if (projects) {
       const index = this.getIndex();
       return (
         <>
-          <div className={`title ${selectedProject ? '-lt' : ''}`}>
+          <div className={`title ${viewerIsOpen ? '-lt' : ''}`}>
             <p>Cassidy Villanos</p>
-            <div
-              className="title__close"
-              onClick={() => this.selectProject(null)}
-            >
-              ✕
-            </div>
-            <span />
+            <div className="title__close" onClick={this.closeViewer}>✕</div>
           </div>
-          <div className={`view view--thumbs ${!selectedProject ? '-active' : ''}`}>
+          <div className={`view view--thumbs ${!viewerIsOpen ? '-active' : ''}`}>
             <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
           </div>
-          <div className={`view view--viewer ${selectedProject ? '-active' : ''}`}>
+          <div className={`view view--viewer ${viewerIsOpen ? '-active' : ''}`}>
             {
             selectedProject &&
               <Viewer

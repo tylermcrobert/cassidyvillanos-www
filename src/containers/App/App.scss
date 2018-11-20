@@ -3,12 +3,13 @@
 
 body {
   font-family: sans-serif;
-  font-size: 18px;
+  font-size: 21px;
+  line-height: 1.2;
+  word-spacing: -.07em;
+
   @include breakpoint(sm) {
     font-size: 25px;
   }
-  line-height: 1.2;
-  word-spacing: -.07em;
 }
 
 h1 {
@@ -16,7 +17,6 @@ h1 {
 }
 
 .title {
-  padding: 1;
   font-size: 1em;
   position: fixed;
   z-index: 100;
@@ -25,6 +25,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   padding: 0 $padding;
+  transition: color 600ms $ease;
   line-height: 2.5em;
 
   p {
@@ -33,9 +34,15 @@ h1 {
 
   &__close {
     cursor: pointer;
+    opacity: 0;
   }
 
   &.-lt {
+
+    .title__close {
+      opacity: 1;
+    }
+
     color: white;
   }
 }
