@@ -1,4 +1,4 @@
-$padding: 20px;
+@import 'styles/variables.scss';
 
 .viewer {
   width: 100%;
@@ -16,15 +16,6 @@ $padding: 20px;
       }
     }
 
-    &__close {
-      text-align: center;
-      display: inline-block;
-      position: relative;
-      margin-left: 0.5em;
-      top: 0.06em;
-      cursor: pointer;
-    }
-
     &__desc {
       max-width: 25em;
       margin: 0.5em auto;
@@ -38,16 +29,29 @@ $padding: 20px;
     color: white;
     height: 100vh;
     box-sizing: border-box;
-    padding: ($padding * 1.5) $padding $padding $padding;
+    padding: 2.5em $padding 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 
     &__text {
       text-align: center;
-      padding-top: $padding;
       user-select: none;
       cursor: pointer;
+      display: flex;
+      line-height: 2.5em;
+
+      div {
+        flex: 1;
+
+        &:nth-child(1) {
+          text-align: left;
+        }
+
+        &:nth-child(3) {
+          text-align: right;
+        }
+      }
 
       span {
         padding: 0 0.75em;

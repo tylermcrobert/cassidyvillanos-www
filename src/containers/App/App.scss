@@ -1,22 +1,68 @@
 @import 'styles/breakpoints.scss';
+@import 'styles/variables.scss';
 
 body {
   font-family: sans-serif;
   font-size: 18px;
-  @include breakpoint(sm){
+  @include breakpoint(sm) {
     font-size: 25px;
   }
   line-height: 1.2;
   word-spacing: -.07em;
 }
 
-h1{
+h1 {
   font-size: 1.75em;
 }
 
 .title {
-  text-align: center;
-  padding: 2%;
+  padding: 1;
   font-size: 1em;
-  margin: .5em 0;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $padding;
+  line-height: 2.5em;
+
+  p {
+    flex: 1;
+  }
+
+  &__close {
+    cursor: pointer;
+  }
+
+  &.-lt {
+    color: white;
+  }
+}
+
+.view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  transition: transform 600ms $ease, opacity 600ms $ease;
+  overflow-y: auto;
+  pointer-events: none;
+  transform: translate3d(100%, 0, 0);
+
+  &--thumbs {
+    transform: translate3d(-100%,0,0);
+    z-index: 10;
+  }
+
+  &--viewer {
+    z-index: 20;
+  }
+
+  &.-active {
+    pointer-events: all;
+    transform: translate3d(0,0,0);
+  }
 }

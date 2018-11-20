@@ -41,7 +41,7 @@ class App extends Component {
 
   selectProject = (uid) => {
     this.setState({ selectedProject: uid });
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }
 
   render() {
@@ -50,9 +50,22 @@ class App extends Component {
       const index = this.getIndex();
       return (
         <>
-          <h1 className="title">Cassidy Villanos</h1>
-          {selectedProject
-            ? (
+          <div className={`title ${selectedProject ? '-lt' : ''}`}>
+            <p>Cassidy Villanos</p>
+            <div
+              className="title__close"
+              onClick={() => this.selectProject(null)}
+            >
+              ✕
+            </div>
+            <span />
+          </div>
+          <div className={`view view--thumbs ${!selectedProject ? '-active' : ''}`}>
+            <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+          </div>
+          <div className={`view view--viewer ${selectedProject ? '-active' : ''}`}>
+            {
+            selectedProject &&
               <Viewer
                 index={index}
                 images={projects[index].images}
@@ -60,9 +73,9 @@ class App extends Component {
                 description={projects[index].description}
                 selectProject={this.selectProject}
               />
-            ) : (
-              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-            )}
+          }
+          </div>
+
         </>
       );
     }

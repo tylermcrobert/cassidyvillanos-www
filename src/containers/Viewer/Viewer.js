@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import getImageSize from 'util/getImageSize';
+import leadingZero from 'util/leadingZero';
 import { RichText } from 'prismic-reactjs';
-import ViewerHeader from './ViewerHeader';
-import ViewerCarousel from './ViewerCarousel';
 import './Viewer.scss';
 
 export default class Viewer extends React.Component {
@@ -31,7 +29,9 @@ export default class Viewer extends React.Component {
 
   render() {
     const {
-      selectProject, title, index, images, description,
+      title, images,
+      // index,
+      // description,
     } = this.props;
     const { slideIndex } = this.state;
     const titleVal = RichText.asText(title);
@@ -47,24 +47,21 @@ export default class Viewer extends React.Component {
 
     return (
       <div className="viewer">
-        <ViewerHeader
-          index={index}
-          title={title}
-          description={description}
-          selectProject={selectProject}
-        />
-        <ViewerCarousel
-          imageList={imageList}
-          slideIndex={slideIndex}
-          nextImage={this.nextImage}
-          prevImage={this.prevImage}
-        />
+        <div className="viewer__imageContainer">
+          <div className="viewer__imageContainer__image">
+            {imageList}
+          </div>
+          <div className="viewer__imageContainer__text">
+            <div>{titleVal}</div>
+            <div>
+              <span onClick={this.prevImage}>⟵</span>
+              {leadingZero(slideIndex + 1)} / {leadingZero(imageList.length)}
+              <span onClick={this.nextImage}>⟶</span>
+            </div>
+            <div>info</div>
+          </div>
+        </div>
       </div>
     );
   }
 }
-
-Viewer.propTypes = {
-  selectProject: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-};
