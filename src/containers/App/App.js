@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import prismicConfig from 'prismic-config';
 import Prismic from 'prismic-javascript';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import 'styles/reset.css';
@@ -8,9 +9,7 @@ import './App.scss';
 
 class App extends Component {
   state = {
-    selectedProject: null,
     projects: null,
-    viewerIsOpen: false,
   }
 
   componentDidMount() {
@@ -35,47 +34,44 @@ class App extends Component {
     });
   }
 
-  getIndex = () =>
+  getIndex = uid =>
     this.state.projects
       .map(proj => proj.uid)
-      .indexOf(this.state.selectedProject)
+      .indexOf(uid)
 
-  selectProject = (uid) => {
-    this.setState({ selectedProject: uid, viewerIsOpen: true });
-    // window.scrollTo(0, 0);
-  }
-
-  closeViewer = () => {
-    this.setState({ viewerIsOpen: false });
-  }
 
   render() {
-    const { selectedProject, projects, viewerIsOpen } = this.state;
+    const { projects } = this.state;
     if (projects) {
-      const index = this.getIndex();
       return (
         <>
-          <div className={`title ${viewerIsOpen ? '-lt' : ''}`}>
-            <p>Cassidy Villanos</p>
-            <div className="title__close" onClick={this.closeViewer}>✕</div>
-          </div>
-          <div className={`view view--thumbs ${!viewerIsOpen ? '-active' : ''}`}>
-            <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-          </div>
-          <div className={`view view--viewer ${viewerIsOpen ? '-active' : ''}`}>
-            {
-            selectedProject &&
-              <Viewer
-                index={index}
-                images={projects[index].images}
-                title={projects[index].title}
-                description={projects[index].description}
-                selectProject={this.selectProject}
+          <h1 className="title">Cassidy Villanos</h1>
+          <BrowserRouter>
+            <Switch>
+              <Route
+                exact
+                path="/work/:uid"
+                render={({ match }) => {
+                  const index = this.getIndex(match.params.uid);
+                  return (<Viewer
+                    index={index}
+                    images={projects[index].images}
+                    title={projects[index].title}
+                    description={projects[index].description}
+                    selectProject={this.selectProject}
+                  />);
+                }}
               />
-          }
-          </div>
-
-        </>
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+                }
+              />
+            </Switch>
+          </BrowserRouter>
+      </>
       );
     }
     return (

@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Thumbnail.scss';
 
 const ProjectThumbnail = ({
-  title, image, selectProject,
+  title, image, uid,
 }) => (
-  <div className="thumbnails__thumbnail" onClick={selectProject}>
-    <div>
+  <div className="thumbnails__thumbnail" >
+    <Link to={`/work/${uid}`}>
       <img src={image} alt={`${title} — Cassidy Villanos`} />
-    </div>
+    </Link>
     <p>{title}</p>
   </div>
 );
