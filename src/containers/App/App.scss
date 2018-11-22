@@ -5,17 +5,18 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
 }
 
 body {
   font-family: 'helvetica neue', 'helvetica', sans-serif;
   font-size: 21px;
   line-height: 1.2;
-  word-spacing: -.07em;
+  letter-spacing:-.03em;
   color: $text-color;
 
   @include breakpoint(sm) {
-    font-size: 25px;
+    font-size: calc(1.5vw + 1.5vh);
   }
 }
 
