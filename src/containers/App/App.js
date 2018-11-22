@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
+import CursorProvider from 'containers/Cursor/CursorProvider';
 import 'styles/reset.css';
 import './App.scss';
 
@@ -50,15 +51,15 @@ class App extends Component {
     if (projects) {
       return (
         <BrowserRouter>
-            <>
-              <h1 className="title">
-                <Link to="/">Cassidy Villanos</Link>
-              </h1>
-              <Switch>
-                <Route
-                  exact
-                  path="/work/:uid"
-                  render={({ match }) => {
+          <CursorProvider>
+            <h1 className="title">
+              <Link to="/">Cassidy Villanos</Link>
+            </h1>
+            <Switch>
+              <Route
+                exact
+                path="/work/:uid"
+                render={({ match }) => {
                   const index = this.getIndex(match.params.uid);
                   return (<Viewer
                     index={index}
@@ -68,16 +69,16 @@ class App extends Component {
                     selectProject={this.selectProject}
                   />);
                 }}
-                />
-                <Route
-                  exact
-                  path="/"
-                  render={() =>
-                    <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+              />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
                 }
-                />
-              </Switch>
-          </>
+              />
+            </Switch>
+          </CursorProvider>
         </BrowserRouter>
       );
     }

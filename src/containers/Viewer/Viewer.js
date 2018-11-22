@@ -1,4 +1,5 @@
 import React from 'react';
+import CursorTrigger from 'containers/Cursor/CursorTrigger';
 import getImageSize from 'util/getImageSize';
 import { RichText } from 'prismic-reactjs';
 import './Viewer.scss';
@@ -44,11 +45,21 @@ export default class Viewer extends React.Component {
       />
     ));
 
+    const nav = dir => `viewer__nav__item viewer__nav__item--${dir}`;
+
     return (
       <div className="viewer">
         <div className="viewer__imageContainer">
-          <div className="viewer__imageContainer__image" onClick={this.nextImage}>
+          <div className="viewer__imageContainer__image" >
             {imageList}
+            <div className="viewer__nav">
+              <CursorTrigger cursor="prev">
+                <div className={nav('prev')} onClick={this.prevImage} />
+              </CursorTrigger>
+              <CursorTrigger cursor="next">
+                <div className={nav('next')} onClick={this.nextImage} />
+              </CursorTrigger>
+            </div>
           </div>
           <div className="viewer__imageContainer__text">
             <div>{titleVal}</div>
