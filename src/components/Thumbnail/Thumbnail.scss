@@ -2,13 +2,13 @@
 @import 'styles/variables.scss';
 
 .thumbnails__thumbnail {
-  padding: $padding / 2;
-  margin: 10px auto;
-  box-sizing: border-box;
+  margin: 5% 0;
   cursor: pointer;
-  flex-basis: 100%;
-  @include breakpoint (sm) {
+  flex-basis: 37%;
+
+  @include breakpoint(xs){
     flex-basis: 50%;
+    padding: $padding / 2;
   }
 
   img {

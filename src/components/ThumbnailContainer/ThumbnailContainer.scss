@@ -1,9 +1,14 @@
 @import 'styles/variables.scss';
+@import 'styles/breakpoints.scss';
 
 .thumbnails {
   display: flex;
   flex-wrap: wrap;
   margin: 0px auto;
   margin-top: 2.5rem;
-  padding: $padding / 2;
+  justify-content: space-evenly;
+
+  @include breakpoint(xs){
+    padding: $padding / 2;
+  }
 }
