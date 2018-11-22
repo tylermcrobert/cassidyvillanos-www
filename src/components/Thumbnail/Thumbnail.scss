@@ -2,7 +2,7 @@
 @import 'styles/variables.scss';
 
 .thumbnails__thumbnail {
-  padding: $padding;
+  padding: $padding / 2;
   margin: 10px auto;
   box-sizing: border-box;
   cursor: pointer;

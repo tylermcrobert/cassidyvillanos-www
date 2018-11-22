@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import prismicConfig from 'prismic-config';
 import Prismic from 'prismic-javascript';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  BrowserRouter,
+  Link,
+} from 'react-router-dom';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import 'styles/reset.css';
@@ -44,14 +49,16 @@ class App extends Component {
     const { projects } = this.state;
     if (projects) {
       return (
-        <>
-          <h1 className="title">Cassidy Villanos</h1>
-          <BrowserRouter>
-            <Switch>
-              <Route
-                exact
-                path="/work/:uid"
-                render={({ match }) => {
+        <BrowserRouter>
+            <>
+              <h1 className="title">
+                <Link to="/">Cassidy Villanos</Link>
+              </h1>
+              <Switch>
+                <Route
+                  exact
+                  path="/work/:uid"
+                  render={({ match }) => {
                   const index = this.getIndex(match.params.uid);
                   return (<Viewer
                     index={index}
@@ -61,21 +68,21 @@ class App extends Component {
                     selectProject={this.selectProject}
                   />);
                 }}
-              />
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+                />
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
                 }
-              />
-            </Switch>
-          </BrowserRouter>
-      </>
+                />
+              </Switch>
+          </>
+        </BrowserRouter>
       );
     }
     return (
-      <div>Loading</div>
+      <div className="loading">Cassidy Villanos</div>
     );
   }
 }

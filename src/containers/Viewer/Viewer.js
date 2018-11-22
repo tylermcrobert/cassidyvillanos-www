@@ -1,6 +1,5 @@
 import React from 'react';
 import getImageSize from 'util/getImageSize';
-import leadingZero from 'util/leadingZero';
 import { RichText } from 'prismic-reactjs';
 import './Viewer.scss';
 
@@ -48,15 +47,13 @@ export default class Viewer extends React.Component {
     return (
       <div className="viewer">
         <div className="viewer__imageContainer">
-          <div className="viewer__imageContainer__image">
+          <div className="viewer__imageContainer__image" onClick={this.nextImage}>
             {imageList}
           </div>
           <div className="viewer__imageContainer__text">
             <div>{titleVal}</div>
             <div>
-              <span onClick={this.prevImage}>⟵</span>
-              {leadingZero(slideIndex + 1)} / {leadingZero(imageList.length)}
-              <span onClick={this.nextImage}>⟶</span>
+              {slideIndex + 1} / {imageList.length}
             </div>
             <div>info</div>
           </div>
