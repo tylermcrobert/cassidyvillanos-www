@@ -114,7 +114,7 @@ class App extends Component {
       );
     }
     return (
-      <div className="loading">Cassidy Villanos</div>
+      <div className="loading">Marc-Cassidy Villanos</div>
     );
   }
 }

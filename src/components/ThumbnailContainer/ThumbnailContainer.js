@@ -22,7 +22,9 @@ const Thumbnails = ({
 
   return (
     <div className="thumbnails">
-      {thumbnails}
+      <div>
+        {thumbnails}
+      </div>
     </div>
   );
 };

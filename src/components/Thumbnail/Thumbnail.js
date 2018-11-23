@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CursorTrigger from 'containers/Cursor/CursorTrigger';
 import './Thumbnail.scss';
 
 const ProjectThumbnail = ({
   title, image, uid,
 }) => (
-  <div className="thumbnails__thumbnail" >
-    <div className="thumbnails__thumbnail__inner" >
+  <>
+    <CursorTrigger
+      z-index={0}
+      className="thumbnails__thumbnail"
+      cursor={<img src={image} className="thumbnails__thumbnail--image" alt={`${title} — Cassidy Villanos`} />}
+    >
       <Link to={`/work/${uid}`}>
-        <img src={image} alt={`${title} — Cassidy Villanos`} />
+        {title}
       </Link>
-      <p>{title}</p>
-    </div>
-  </div>
+    </CursorTrigger>
+</>
+
 );
 
 ProjectThumbnail.defaultProps = {
