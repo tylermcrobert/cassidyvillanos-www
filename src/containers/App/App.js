@@ -84,7 +84,7 @@ class App extends Component {
         <BrowserRouter>
           <CursorProvider>
             <h1 className="title">
-              <Link to="/">Cassidy Villanos</Link>
+              <Link to="/">{config.title}</Link>
             </h1>
             <Switch>
               <Route
@@ -114,7 +114,7 @@ class App extends Component {
       );
     }
     return (
-      <div className="loading">Marc-Cassidy Villanos</div>
+      <div className="loading">{config.title}</div>
     );
   }
 }
