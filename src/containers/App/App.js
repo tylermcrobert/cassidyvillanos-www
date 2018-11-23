@@ -16,6 +16,7 @@ import './App.scss';
 class App extends Component {
   state = {
     projects: null,
+    imagesLoaded: false,
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class App extends Component {
           images: result.data.images.map(img => img.image),
         })),
       }, () => {
-        this.loadImages();
+        this.preload();
       });
     });
   }
@@ -47,15 +48,36 @@ class App extends Component {
       .map(proj => proj.uid)
       .indexOf(uid)
 
-  loadImages = () => {
-    this.state.projects.forEach((proj) => {
-      const img = new Image();
-      img.src = proj.images[0].laptop.url;
+  preload = () => {
+    const images = this.state.projects.map(proj => proj.images[0]);
+    const thumbnails = images.map(img => img.mobile.url);
+    const mainImage = images.map(img => img.laptop.url);
+
+    this.loadImages(mainImage);
+
+    Promise.all([
+      ...this.loadImages(thumbnails),
+    ]).then(() => {
+      this.setState({ imagesLoaded: true });
     });
   }
+
+  loadImages = (imgs) => {
+    const imgStatuses = [];
+    imgs.forEach((url, i) => {
+      imgStatuses[i] = new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve({ status: 'ok' });
+        img.onerror = () => resolve({ status: 'error' });
+      });
+    });
+    return imgStatuses;
+  }
+
   render() {
-    const { projects } = this.state;
-    if (projects) {
+    const { projects, imagesLoaded } = this.state;
+    if (projects && imagesLoaded) {
       return (
         <BrowserRouter>
           <CursorProvider>
