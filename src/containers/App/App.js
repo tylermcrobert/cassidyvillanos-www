@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import prismicConfig from 'prismic-config';
+import config from 'config';
 import Prismic from 'prismic-javascript';
 import {
   Switch,
@@ -7,6 +7,7 @@ import {
   BrowserRouter,
   Link,
 } from 'react-router-dom';
+import getImageSize from 'util/getImageSize';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import CursorProvider from 'containers/Cursor/CursorProvider';
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Prismic.api(prismicConfig.apiEndpoint).then((api) => {
+    Prismic.api(config.apiEndpoint).then((api) => {
       api.getSingle('site').then((doc) => {
         const ids = doc.data.projects.map(proj => proj.project.id);
         this.getProjects(api, ids);
@@ -50,8 +51,9 @@ class App extends Component {
 
   preload = () => {
     const images = this.state.projects.map(proj => proj.images[0]);
-    const thumbnails = images.map(img => img.mobile.url);
-    const mainImage = images.map(img => img.laptop.url);
+    const thumbnails = images.map(img => getImageSize(img, config.thumbnailSize));
+    const mainImage = images.map(img => getImageSize(img, config.viewerSize));
+
 
     this.loadImages(mainImage);
 
