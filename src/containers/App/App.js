@@ -36,6 +36,8 @@ class App extends Component {
           description: result.data.description,
           images: result.data.images.map(img => img.image),
         })),
+      }, () => {
+        this.loadImages();
       });
     });
   }
@@ -45,7 +47,12 @@ class App extends Component {
       .map(proj => proj.uid)
       .indexOf(uid)
 
-
+  loadImages = () => {
+    this.state.projects.forEach((proj) => {
+      const img = new Image();
+      img.src = proj.images[0].laptop.url;
+    });
+  }
   render() {
     const { projects } = this.state;
     if (projects) {
