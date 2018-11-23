@@ -1,5 +1,6 @@
 import React from 'react';
 import getImageSize from 'util/getImageSize';
+import config from 'config';
 import { RichText } from 'prismic-reactjs';
 import Thumbnail from 'components/Thumbnail/Thumbnail';
 import './ThumbnailContainer.scss';
@@ -12,7 +13,7 @@ const Thumbnails = ({
     return (
       <Thumbnail
         title={RichText.asText(title)}
-        image={getImageSize(result.images[0], 'mobile')}
+        image={getImageSize(result.images[0], config.thumbnailSize)}
         uid={uid}
         key={uid}
         selectProject={() => selectProject(uid)}

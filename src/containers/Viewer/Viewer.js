@@ -1,5 +1,6 @@
 import React from 'react';
 import CursorTrigger from 'containers/Cursor/CursorTrigger';
+import config from 'config';
 import getImageSize from 'util/getImageSize';
 import { RichText } from 'prismic-reactjs';
 import './Viewer.scss';
@@ -39,7 +40,7 @@ export default class Viewer extends React.Component {
     const imageList = images.map((img, i) => (
       <img
         className={i === slideIndex ? '-active' : ''}
-        src={getImageSize(img, 'laptop')}
+        src={getImageSize(img, config.viewerSize)}
         key={img.url}
         alt={`${titleVal} - Cassidy Villanos`}
       />
