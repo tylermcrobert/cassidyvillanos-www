@@ -62,10 +62,15 @@ a {
     position: absolute;
     height: 100%;
     pointer-events: none;
-    transition: transform 600ms $ease;
+    opacity: 0;
+    transition: transform 400ms $ease, opacity 400ms $ease;
 
     &--home {
       transform: translateY(-100vh);
+
+      .cursor {
+        transition: transform 300ms ease-out;
+      }
     }
 
     &--viewer {
@@ -73,6 +78,7 @@ a {
     }
 
     &.-active {
+      opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
     }
