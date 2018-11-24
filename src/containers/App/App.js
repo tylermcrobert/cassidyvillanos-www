@@ -3,11 +3,30 @@ import config from 'config';
 import Prismic from 'prismic-javascript';
 import { Link, withRouter } from 'react-router-dom';
 import getImageSize from 'util/getImageSize';
+import posed from 'react-pose';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import CursorProvider from 'containers/Cursor/CursorProvider';
 import 'styles/reset.css';
 import './App.scss';
+
+const transition = {
+  transition: {
+    default: { duration: 300 },
+    ease: 'circIn',
+  },
+};
+
+const Home = posed.div({
+  visible: { y: '0vh', opacity: 1, ...transition },
+  hidden: { y: '-100vh', opacity: 0, ...transition },
+});
+
+const ViewerWrapper = posed.div({
+  visible: { y: '0vh', opacity: 1, ...transition },
+  hidden: { y: '100vh', opacity: 0, ...transition },
+});
+
 
 class App extends Component {
   state = {
@@ -99,18 +118,28 @@ class App extends Component {
           <Link to="/">{config.title}</Link>
         </h1>
         <div className="wrapper">
-          <CursorProvider className={`section section--home ${view === 'home' ? '-active' : ''}`} >
-            <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-          </CursorProvider>
-          <CursorProvider className={`section section--viewer ${view === 'viewer' ? '-active' : ''}`} >
-            <Viewer
-              index={index}
-              images={projects[index].images}
-              title={projects[index].title}
-              description={projects[index].description}
-              selectProject={this.selectProject}
-            />
-          </CursorProvider>
+          <Home
+            pose={view === 'home' ? 'visible' : 'hidden'}
+            className={`section section--home ${view === 'home' ? '-active' : ''}`}
+          >
+            <CursorProvider >
+              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+            </CursorProvider>
+          </Home>
+          <ViewerWrapper
+            className={`section section--viewer ${view === 'viewer' ? '-active' : ''}`}
+            pose={view === 'viewer' ? 'visible' : 'hidden'}
+          >
+            <CursorProvider>
+              <Viewer
+                index={index}
+                images={projects[index].images}
+                title={projects[index].title}
+                description={projects[index].description}
+                selectProject={this.selectProject}
+              />
+            </CursorProvider>
+          </ViewerWrapper>
         </div>
         </>
       );

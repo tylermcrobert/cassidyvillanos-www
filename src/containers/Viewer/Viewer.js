@@ -45,7 +45,7 @@ export default class Viewer extends React.Component {
     ));
 
     const nav = dir => `viewer__nav__item viewer__nav__item--${dir}`;
-
+    console.log('rendereds');
     return (
       <div className="viewer">
         <div className="viewer__image" >

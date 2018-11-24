@@ -43,12 +43,12 @@ export default class CursorProvider extends React.Component {
   render() {
     return (
       <CursorContext.Provider value={{ updateCursor: this.updateCursor }}>
-        <div className={this.props.className} ref={this.container}>
+        <>
           {this.props.children}
           <div className="cursor" style={{ display: 'none' }}ref={this.cursor}>
             <div className="cursor__inner">{this.state.cursor}</div>
           </div>
-        </div>
+        </>
       </CursorContext.Provider>
     );
   }

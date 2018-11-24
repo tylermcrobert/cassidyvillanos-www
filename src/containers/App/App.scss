@@ -62,25 +62,13 @@ a {
     position: absolute;
     height: 100%;
     pointer-events: none;
-    opacity: 0;
-    transition: transform 400ms $ease, opacity 400ms $ease;
 
     &--home {
-      transform: translateY(-100vh);
-
-      .cursor {
-        transition: transform 300ms ease-out;
-      }
-    }
-
-    &--viewer {
-      transform: translateY(100vh);
+      z-index: 100;
     }
 
     &.-active {
-      opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
     }
   }
 }
