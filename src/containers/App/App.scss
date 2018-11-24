@@ -8,6 +8,12 @@
   user-select: none;
 }
 
+#root, //sass-lint:disable-line no-ids
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: 'helvetica neue', 'helvetica', sans-serif;
   font-size: 21px;
@@ -45,13 +51,9 @@ a {
 }
 
 .loading {
-  width:100vw;
-  height: 100vh;
   position: fixed;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include full-centered;
 }
 
 .wrapper {
@@ -87,4 +89,9 @@ a {
   width: 100vw;
   height: 200vh;
   z-index: 200;
+}
+
+.notFound {
+  font-size: $heading;
+  @include full-centered;
 }
