@@ -15,8 +15,8 @@ const transition = {
 
 const viewAppear = {
   transition: {
-    delay: (DURATION + DELAY),
-    duration: (DURATION * 0.25),
+    delay: (DURATION + DELAY + (DURATION * 0.1)),
+    duration: (DURATION * 0.75),
     ease: EASE_DECEL,
   },
 };
