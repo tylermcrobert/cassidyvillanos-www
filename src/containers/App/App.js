@@ -94,26 +94,25 @@ class App extends Component {
     const { view } = this.props;
     if (projects && imagesLoaded) {
       const index = this.getIndex(this.state.currentUid);
-      return (
-        <CursorProvider>
-          <h1 className="title">
-            <Link to="/">{config.title}</Link>
-          </h1>
-          <div className="wrapper">
-            <div className={`wrapper__inner ${view === 'home' ? '-active' : ''}`} >
-              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-            </div>
-            <div className={`wrapper__inner ${view === 'viewer' ? '-active' : ''}`} >
-              <Viewer
-                index={index}
-                images={projects[index].images}
-                title={projects[index].title}
-                description={projects[index].description}
-                selectProject={this.selectProject}
-              />
-            </div>
-          </div>
-        </CursorProvider>
+      return (<>
+        <h1 className="title">
+          <Link to="/">{config.title}</Link>
+        </h1>
+        <div className="wrapper">
+          <CursorProvider className={`section section--home ${view === 'home' ? '-active' : ''}`} >
+            <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+          </CursorProvider>
+          <CursorProvider className={`section section--viewer ${view === 'viewer' ? '-active' : ''}`} >
+            <Viewer
+              index={index}
+              images={projects[index].images}
+              title={projects[index].title}
+              description={projects[index].description}
+              selectProject={this.selectProject}
+            />
+          </CursorProvider>
+        </div>
+        </>
       );
     }
     return (
