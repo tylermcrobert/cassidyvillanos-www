@@ -3,50 +3,12 @@ import config from 'config';
 import Prismic from 'prismic-javascript';
 import { Link, withRouter } from 'react-router-dom';
 import getImageSize from 'util/getImageSize';
-import posed from 'react-pose';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import CursorProvider from 'containers/Cursor/CursorProvider';
 import 'styles/reset.css';
+import { Curtain, ThumbnailWrapper, ViewerWrapper } from './animation';
 import './App.scss';
-
-const transition = {
-  transition: {
-    default: { duration: 600 },
-    ease: 'circOut',
-  },
-};
-
-const delayedTransition = {
-  ...transition,
-  transition: {
-    default: {
-      delay: 300,
-    },
-  },
-
-};
-const Home = posed.div({
-  visible: { y: '0vh', opacity: 1, ...delayedTransition },
-  hidden: { y: '-10vh', opacity: 0, ...transition },
-});
-
-const ViewerWrapper = posed.div({
-  visible: { y: '0vh', opacity: 1, ...delayedTransition },
-  hidden: { y: '10vh', opacity: 0, ...transition },
-});
-
-const curtainTransition = {
-  transition: {
-    default: { duration: 800 },
-    ease: 'easeOut',
-  },
-};
-const Curtain = posed.div({
-  up: { y: '200vh', ...curtainTransition },
-  down: { y: '-200vh', ...curtainTransition },
-});
-
 
 class App extends Component {
   state = {
@@ -140,14 +102,14 @@ class App extends Component {
         <Curtain pose={view === 'home' ? 'up' : 'down'} className="curtain" />
 
         <div className="wrapper">
-          <Home
+          <ThumbnailWrapper
             pose={view === 'home' ? 'visible' : 'hidden'}
             className={`section section--home ${view === 'home' ? '-active' : ''}`}
           >
             <CursorProvider >
               <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
             </CursorProvider>
-          </Home>
+          </ThumbnailWrapper>
           <ViewerWrapper
             className={`section section--viewer ${view === 'viewer' ? '-active' : ''}`}
             pose={view === 'viewer' ? 'visible' : 'hidden'}
@@ -171,5 +133,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default withRouter(App);
