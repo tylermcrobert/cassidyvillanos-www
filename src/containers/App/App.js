@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import config from 'config';
 import Prismic from 'prismic-javascript';
-import {
-  Switch,
-  Route,
-  BrowserRouter,
-  Link,
-} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { matchPath } from 'react-router';
 import getImageSize from 'util/getImageSize';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
@@ -18,6 +14,7 @@ class App extends Component {
   state = {
     projects: null,
     imagesLoaded: false,
+    currentUid: null,
   }
 
   componentDidMount() {
@@ -26,6 +23,21 @@ class App extends Component {
         const ids = doc.data.projects.map(proj => proj.project.id);
         this.getProjects(api, ids);
       });
+    });
+  }
+
+  componentDidUpdate() {
+    this.setUid();
+  }
+
+  setUid = () => {
+    const match = this.props.match.params;
+    const { uid } = match;
+    this.setState((prevState) => {
+      if (uid && prevState.currentUid !== uid) {
+        return { currentUid: uid };
+      }
+      return null;
     });
   }
 
@@ -80,37 +92,26 @@ class App extends Component {
   render() {
     const { projects, imagesLoaded } = this.state;
     if (projects && imagesLoaded) {
+      const index = 0;
+
       return (
-        <BrowserRouter>
+        <div className={`app -view-is-${this.props.view}`}>
           <CursorProvider>
             <h1 className="title">
               <Link to="/">{config.title}</Link>
             </h1>
-            <Switch>
-              <Route
-                exact
-                path="/work/:uid"
-                render={({ match }) => {
-                  const index = this.getIndex(match.params.uid);
-                  return (<Viewer
-                    index={index}
-                    images={projects[index].images}
-                    title={projects[index].title}
-                    description={projects[index].description}
-                    selectProject={this.selectProject}
-                  />);
-                }}
+            <div className="wrapper">
+              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+              <Viewer
+                index={index}
+                images={projects[index].images}
+                title={projects[index].title}
+                description={projects[index].description}
+                selectProject={this.selectProject}
               />
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-                }
-              />
-            </Switch>
+            </div>
           </CursorProvider>
-        </BrowserRouter>
+        </div>
       );
     }
     return (
@@ -119,4 +120,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
