@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import config from 'config';
 import Prismic from 'prismic-javascript';
 import { Link, withRouter } from 'react-router-dom';
-import { matchPath } from 'react-router';
 import getImageSize from 'util/getImageSize';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
@@ -56,10 +55,11 @@ class App extends Component {
     });
   }
 
-  getIndex = uid =>
-    this.state.projects
+  getIndex = uid => (uid
+    ? this.state.projects
       .map(proj => proj.uid)
       .indexOf(uid)
+    : 0)
 
   preload = () => {
     const images = this.state.projects.map(proj => proj.images[0]);
@@ -91,17 +91,19 @@ class App extends Component {
 
   render() {
     const { projects, imagesLoaded } = this.state;
+    const { view } = this.props;
     if (projects && imagesLoaded) {
-      const index = 0;
-
+      const index = this.getIndex(this.state.currentUid);
       return (
-        <div className={`app -view-is-${this.props.view}`}>
-          <CursorProvider>
-            <h1 className="title">
-              <Link to="/">{config.title}</Link>
-            </h1>
-            <div className="wrapper">
+        <CursorProvider>
+          <h1 className="title">
+            <Link to="/">{config.title}</Link>
+          </h1>
+          <div className="wrapper">
+            <div className={`wrapper__inner ${view === 'home' ? '-active' : ''}`} >
               <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+            </div>
+            <div className={`wrapper__inner ${view === 'viewer' ? '-active' : ''}`} >
               <Viewer
                 index={index}
                 images={projects[index].images}
@@ -110,8 +112,8 @@ class App extends Component {
                 selectProject={this.selectProject}
               />
             </div>
-          </CursorProvider>
-        </div>
+          </div>
+        </CursorProvider>
       );
     }
     return (

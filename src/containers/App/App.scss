@@ -52,3 +52,18 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+.wrapper {
+  position: relative;
+  padding-top: 2.5em;
+  height: 100vh;
+
+  &__inner {
+    display: none;
+    height: 100%;
+
+    &.-active {
+      display: block;
+    }
+  }
+}

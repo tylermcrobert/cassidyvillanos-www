@@ -31,8 +31,6 @@ export default class Viewer extends React.Component {
   render() {
     const {
       title, images,
-      // index,
-      // description,
     } = this.props;
     const { slideIndex } = this.state;
     const titleVal = RichText.asText(title);
@@ -50,24 +48,28 @@ export default class Viewer extends React.Component {
 
     return (
       <div className="viewer">
-        <div className="viewer__imageContainer">
-          <div className="viewer__imageContainer__image" >
-            {imageList}
-            <div className="viewer__nav">
-              <CursorTrigger cursor="prev">
-                <div className={nav('prev')} onClick={this.prevImage} />
-              </CursorTrigger>
-              <CursorTrigger cursor="next">
-                <div className={nav('next')} onClick={this.nextImage} />
-              </CursorTrigger>
-            </div>
+        <div className="viewer__image" >
+          {imageList}
+          <div className="viewer__nav">
+            <CursorTrigger cursor="prev">
+              <div className={nav('prev')} onClick={this.prevImage} />
+            </CursorTrigger>
+            <CursorTrigger cursor="next">
+              <div className={nav('next')} onClick={this.nextImage} />
+            </CursorTrigger>
           </div>
-          <div className="viewer__imageContainer__text">
-            <div>{titleVal}</div>
-            <div>
+        </div>
+        <div className="viewer__textW">
+          <div className="viewer__text--inner">
+            <div className="viewer__text__item viewer__text__item--title">
+              {titleVal}
+            </div>
+            <div className="viewer__text__item viewer__text__item--index">
               {slideIndex + 1} / {imageList.length}
             </div>
-            <div>info</div>
+            <div className="viewer__text__item viewer__text__item--info">
+              info
+            </div>
           </div>
         </div>
       </div>
