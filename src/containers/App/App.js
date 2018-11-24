@@ -12,19 +12,39 @@ import './App.scss';
 
 const transition = {
   transition: {
-    default: { duration: 300 },
-    ease: 'circIn',
+    default: { duration: 600 },
+    ease: 'circOut',
   },
 };
 
+const delayedTransition = {
+  ...transition,
+  transition: {
+    default: {
+      delay: 300,
+    },
+  },
+
+};
 const Home = posed.div({
-  visible: { y: '0vh', opacity: 1, ...transition },
-  hidden: { y: '-100vh', opacity: 0, ...transition },
+  visible: { y: '0vh', opacity: 1, ...delayedTransition },
+  hidden: { y: '-10vh', opacity: 0, ...transition },
 });
 
 const ViewerWrapper = posed.div({
-  visible: { y: '0vh', opacity: 1, ...transition },
-  hidden: { y: '100vh', opacity: 0, ...transition },
+  visible: { y: '0vh', opacity: 1, ...delayedTransition },
+  hidden: { y: '10vh', opacity: 0, ...transition },
+});
+
+const curtainTransition = {
+  transition: {
+    default: { duration: 800 },
+    ease: 'easeOut',
+  },
+};
+const Curtain = posed.div({
+  up: { y: '200vh', ...curtainTransition },
+  down: { y: '-200vh', ...curtainTransition },
 });
 
 
@@ -117,6 +137,8 @@ class App extends Component {
         <h1 className="title">
           <Link to="/">{config.title}</Link>
         </h1>
+        <Curtain pose={view === 'home' ? 'up' : 'down'} className="curtain" />
+
         <div className="wrapper">
           <Home
             pose={view === 'home' ? 'visible' : 'hidden'}
