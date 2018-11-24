@@ -10,6 +10,16 @@ export default class Viewer extends React.Component {
     slideIndex: 0,
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.index !== this.props.index) {
+      this.resetIndex();
+    }
+  }
+
+  resetIndex = () => {
+    this.setState({ slideIndex: 0 });
+  }
+
   nextImage = () => {
     const nextImg = this.state.slideIndex < this.props.images.length - 1
       ? this.state.slideIndex + 1
