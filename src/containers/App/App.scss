@@ -21,7 +21,7 @@ body {
   color: $text-color;
 
   @include breakpoint(sm) {
-    font-size: calc(1.5vw + 1.5vh);
+    font-size: 24px;
   }
 }
 
