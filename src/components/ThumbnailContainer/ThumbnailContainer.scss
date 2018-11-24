@@ -2,7 +2,7 @@
 @import 'styles/breakpoints.scss';
 
 .thumbnails {
-  font-size: calc(5vw + 5vh);
+  font-size: $heading;
   word-wrap: break-word;
   display: flex;
   flex-direction: column;

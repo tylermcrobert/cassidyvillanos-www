@@ -12,7 +12,7 @@ body {
   font-family: 'helvetica neue', 'helvetica', sans-serif;
   font-size: 21px;
   line-height: 1.2;
-  letter-spacing:-.03em;
+  // letter-spacing:-.03em;
   color: $text-color;
 
   @include breakpoint(sm) {
@@ -22,6 +22,7 @@ body {
 
 h1 {
   font-size: 1.75em;
+
 }
 
 a {
@@ -61,10 +62,15 @@ a {
     padding-top: 2.5em;
     position: absolute;
     height: 100%;
+    width: 100%;
     pointer-events: none;
 
     &--home {
       z-index: 100;
+
+      .cursor {
+        transition: transform 200ms ease-out;
+      }
     }
 
     &.-active {

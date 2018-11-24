@@ -7,8 +7,9 @@
   position: relative;
 
   &--image {
-    width: 75vw;
-    max-width: 720px;
+    width: 80vw;
+    height: 80vh;
+    object-fit: contain;
   }
 
   a {

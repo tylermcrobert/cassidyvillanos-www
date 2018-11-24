@@ -45,7 +45,6 @@ export default class Viewer extends React.Component {
     ));
 
     const nav = dir => `viewer__nav__item viewer__nav__item--${dir}`;
-    console.log('rendereds');
     return (
       <div className="viewer">
         <div className="viewer__image" >
@@ -59,7 +58,7 @@ export default class Viewer extends React.Component {
             </CursorTrigger>
           </div>
         </div>
-        <div className="viewer__textW">
+        <div className="viewer__text">
           <div className="viewer__text--inner">
             <div className="viewer__text__item viewer__text__item--title">
               {titleVal}
