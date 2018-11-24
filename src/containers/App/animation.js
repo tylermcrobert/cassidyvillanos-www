@@ -7,15 +7,10 @@ const EASE_DEFAULT = easing.cubicBezier(0.4, 0.0, 0.2, 1);
 const EASE_ACCEL = easing.cubicBezier(0.4, 0.0, 1, 1);
 const EASE_DECEL = easing.cubicBezier(0.0, 0.0, 0.2, 1);
 
-const transition = {
-  transition: {
-    duration: DURATION * 2,
-  },
-};
 
 const viewAppear = {
   transition: {
-    delay: (DURATION + DELAY + (DURATION * 0.1)),
+    delay: (DURATION + (DELAY * 0.75)),
     duration: (DURATION * 0.75),
     ease: EASE_DECEL,
   },
@@ -23,20 +18,19 @@ const viewAppear = {
 
 const viewDisppear = {
   transition: {
-    duration: DELAY * 1.5,
+    duration: DURATION * 0.5,
     ease: EASE_ACCEL,
   },
 };
 
 const ThumbnailWrapper = posed.div({
-  visible: { y: '0vh', opacity: 1, ...viewAppear },
-  hidden: { y: '-2vh', opacity: 0, ...viewDisppear },
+  visible: { y: '0%', ...viewAppear },
+  hidden: { y: '-5%', ...viewDisppear },
 });
 
 const ViewerWrapper = posed.div({
-  ...transition,
-  visible: { y: '0vh', opacity: 1, ...viewAppear },
-  hidden: { y: '2vh', opacity: 0, ...viewDisppear },
+  visible: { y: '0%', ...viewAppear },
+  hidden: { y: '5%', ...viewDisppear },
 });
 
 const curtainSettings = {
@@ -52,15 +46,33 @@ const curtainSettings = {
 
 const Curtain = posed.div({
   up: {
-    y: '100vh',
+    y: '100%',
     ...curtainSettings,
   },
 
   down: {
-    y: '-100vh',
+    y: '-100%',
     ...curtainSettings,
   },
 });
 
+const GalleryImage = posed.div({
+  visible: {
+    y: '0%',
+    transition: {
+      delay: ((DURATION * 0.75) + DELAY),
+      duration: (DURATION * 0.3),
+      ease: EASE_DECEL,
+    },
+  },
+  hidden: {
+    y: '7%',
+    transition: {
+      duration: (DURATION * 0.75),
+      ease: EASE_ACCEL,
+    },
+  },
+});
 
-export { Curtain, ThumbnailWrapper, ViewerWrapper };
+
+export { Curtain, ThumbnailWrapper, ViewerWrapper, GalleryImage };

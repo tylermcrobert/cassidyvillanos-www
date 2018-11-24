@@ -1,5 +1,6 @@
 import React from 'react';
 import CursorTrigger from 'containers/Cursor/CursorTrigger';
+import { GalleryImage } from 'containers/App/animation';
 import config from 'config';
 import getImageSize from 'util/getImageSize';
 import { RichText } from 'prismic-reactjs';
@@ -57,7 +58,7 @@ export default class Viewer extends React.Component {
     const nav = dir => `viewer__nav__item viewer__nav__item--${dir}`;
     return (
       <div className="viewer">
-        <div className="viewer__image" >
+        <GalleryImage className="viewer__image" >
           {imageList}
           <div className="viewer__nav">
             <CursorTrigger cursor="prev">
@@ -67,7 +68,7 @@ export default class Viewer extends React.Component {
               <div className={nav('next')} onClick={this.nextImage} />
             </CursorTrigger>
           </div>
-        </div>
+        </GalleryImage>
         <div className="viewer__text">
           <div className="viewer__text--inner">
             <div className="viewer__text__item viewer__text__item--title">
