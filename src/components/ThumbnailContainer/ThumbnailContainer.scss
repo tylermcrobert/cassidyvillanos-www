@@ -3,7 +3,6 @@
 
 .thumbnails {
   @include full-centered;
-  font-size: $heading;
   word-wrap: break-word;
   flex-direction: column;
   text-align: center;

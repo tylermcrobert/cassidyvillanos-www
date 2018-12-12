@@ -20,6 +20,7 @@ class App extends Component {
   componentDidMount() {
     Prismic.api(config.apiEndpoint).then((api) => {
       api.getSingle('site').then((doc) => {
+        this.titleSize = doc.data.title_size;
         const ids = doc.data.projects.map(proj => proj.project.id);
         this.getProjects(api, ids);
       });
@@ -107,7 +108,11 @@ class App extends Component {
             className={`section section--home ${view === 'home' ? '-active' : ''}`}
           >
             <CursorProvider >
-              <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
+              <ThumbnailContainer
+                titleSize={this.titleSize}
+                projects={projects}
+                selectProject={this.selectProject}
+              />
             </CursorProvider>
           </ThumbnailWrapper>
           <ViewerWrapper

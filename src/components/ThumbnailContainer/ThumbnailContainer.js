@@ -6,7 +6,7 @@ import Thumbnail from 'components/Thumbnail/Thumbnail';
 import './ThumbnailContainer.scss';
 
 const Thumbnails = ({
-  selectProject, projects,
+  selectProject, projects, titleSize,
 }) => {
   const thumbnails = projects.map((result) => {
     const { uid, title } = result;
@@ -22,7 +22,7 @@ const Thumbnails = ({
 
   return (
     <div className="thumbnails">
-      <div>
+      <div style={{ fontSize: `calc(${titleSize}vw + ${titleSize}vh)` }}>
         {thumbnails}
       </div>
     </div>
