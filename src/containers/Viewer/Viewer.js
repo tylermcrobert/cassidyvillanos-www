@@ -46,7 +46,7 @@ export default class Viewer extends React.Component {
     const { slideIndex } = this.state;
     const titleVal = RichText.asText(title);
 
-    const imageList = images.map((img, i) => (
+    const Images = () => images.map((img, i) => (
       <img
         className={i === slideIndex ? '-active' : ''}
         src={getImageSize(img, config.viewerSize)}
@@ -56,32 +56,41 @@ export default class Viewer extends React.Component {
     ));
 
     const nav = dir => `viewer__nav__item viewer__nav__item--${dir}`;
+
+    const BottomInfo = () => (
+      <div className="viewer__text">
+        <div className="viewer__text--inner">
+          <div className="viewer__text__item viewer__text__item--title">
+            {titleVal}
+          </div>
+          <div className="viewer__text__item viewer__text__item--index">
+            {slideIndex + 1} / {Images().length}
+          </div>
+          <div className="viewer__text__item viewer__text__item--info">
+            info
+          </div>
+        </div>
+      </div>
+    );
+
+    const Navigation = () => (
+      <div className="viewer__nav">
+        <CursorTrigger cursor="prev">
+          <div className={nav('prev')} onClick={this.prevImage} />
+        </CursorTrigger>
+        <CursorTrigger cursor="next">
+          <div className={nav('next')} onClick={this.nextImage} />
+        </CursorTrigger>
+      </div>
+    );
+
     return (
       <div className="viewer">
         <GalleryImage className="viewer__image" >
-          {imageList}
-          <div className="viewer__nav">
-            <CursorTrigger cursor="prev">
-              <div className={nav('prev')} onClick={this.prevImage} />
-            </CursorTrigger>
-            <CursorTrigger cursor="next">
-              <div className={nav('next')} onClick={this.nextImage} />
-            </CursorTrigger>
-          </div>
+          <Images />
         </GalleryImage>
-        <div className="viewer__text">
-          <div className="viewer__text--inner">
-            <div className="viewer__text__item viewer__text__item--title">
-              {titleVal}
-            </div>
-            <div className="viewer__text__item viewer__text__item--index">
-              {slideIndex + 1} / {imageList.length}
-            </div>
-            <div className="viewer__text__item viewer__text__item--info">
-              info
-            </div>
-          </div>
-        </div>
+        <Navigation />
+        <BottomInfo />
       </div>
     );
   }
