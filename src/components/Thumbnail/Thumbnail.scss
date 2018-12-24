@@ -2,16 +2,31 @@
 @import 'styles/variables.scss';
 
 .thumbnails__thumbnail {
-  margin: 5% 0;
   cursor: pointer;
-  flex-basis: 37%;
+  display: inline;
+  position: relative;
 
-  @include breakpoint(xs){
-    flex-basis: 50%;
-    padding: $padding / 2;
+  &--image {
+    width: 80vw;
+    height: 80vh;
+    object-fit: contain;
   }
 
-  img {
-    width: 100%;
+  a {
+    position: relative;
+    transition: color 300ms $ease;
+
+    &::after {
+      content: ' / ';
+    }
+
+    &:hover {
+      color: $background-color;
+      z-index: 400;
+
+      &::after {
+        opacity: 0;
+      }
+    }
   }
 }

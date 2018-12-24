@@ -8,20 +8,23 @@
   user-select: none;
 }
 
+#root, //sass-lint:disable-line no-ids
+html,
+body {
+  height: 100%;
+}
+
+
 body {
   font-family: 'helvetica neue', 'helvetica', sans-serif;
   font-size: 21px;
   line-height: 1.2;
-  letter-spacing:-.03em;
   color: $text-color;
-
-  @include breakpoint(sm) {
-    font-size: calc(1.5vw + 1.5vh);
-  }
 }
 
 h1 {
   font-size: 1.75em;
+
 }
 
 a {
@@ -34,7 +37,7 @@ a {
   font-size: 1em;
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   z-index: 100;
   width: 100%;
   display: flex;
@@ -44,11 +47,50 @@ a {
 }
 
 .loading {
-  width:100vw;
-  height: 100vh;
   position: fixed;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include full-centered;
+}
+
+.wrapper {
+  position: relative;
+  height: 100vh;
+
+  .section {
+    padding-top: 2.5em;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0ms ease 300ms;
+
+    &--home {
+      z-index: 100;
+
+      .cursor {
+        transition: transform 200ms ease-out;
+      }
+    }
+
+    &.-active {
+      pointer-events: auto;
+      opacity: 1;
+    }
+  }
+}
+
+.curtain {
+  background: #0a0a0a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  // opacity: 0;
+  z-index: 200;
+}
+
+.notFound {
+  @include full-centered;
 }

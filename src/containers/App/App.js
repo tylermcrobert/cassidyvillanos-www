@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import config from 'config';
 import Prismic from 'prismic-javascript';
-import {
-  Switch,
-  Route,
-  BrowserRouter,
-  Link,
-} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import getImageSize from 'util/getImageSize';
 import ThumbnailContainer from 'components/ThumbnailContainer/ThumbnailContainer';
 import Viewer from 'containers/Viewer/Viewer';
 import CursorProvider from 'containers/Cursor/CursorProvider';
 import 'styles/reset.css';
+import { Curtain, ThumbnailWrapper, ViewerWrapper } from './animation';
 import './App.scss';
 
 class App extends Component {
   state = {
     projects: null,
     imagesLoaded: false,
+    currentUid: null,
   }
 
   componentDidMount() {
     Prismic.api(config.apiEndpoint).then((api) => {
       api.getSingle('site').then((doc) => {
+        this.titleSize = doc.data.title_size;
         const ids = doc.data.projects.map(proj => proj.project.id);
         this.getProjects(api, ids);
       });
+    });
+  }
+
+  componentDidUpdate() {
+    this.setUid();
+  }
+
+  setUid = () => {
+    const match = this.props.match.params;
+    const { uid } = match;
+    this.setState((prevState) => {
+      if (uid && prevState.currentUid !== uid) {
+        return { currentUid: uid };
+      }
+      return null;
     });
   }
 
@@ -44,10 +57,11 @@ class App extends Component {
     });
   }
 
-  getIndex = uid =>
-    this.state.projects
+  getIndex = uid => (uid
+    ? this.state.projects
       .map(proj => proj.uid)
       .indexOf(uid)
+    : 0)
 
   preload = () => {
     const images = this.state.projects.map(proj => proj.images[0]);
@@ -79,44 +93,51 @@ class App extends Component {
 
   render() {
     const { projects, imagesLoaded } = this.state;
+    const { view } = this.props;
     if (projects && imagesLoaded) {
-      return (
-        <BrowserRouter>
-          <CursorProvider>
-            <h1 className="title">
-              <Link to="/">Cassidy Villanos</Link>
-            </h1>
-            <Switch>
-              <Route
-                exact
-                path="/work/:uid"
-                render={({ match }) => {
-                  const index = this.getIndex(match.params.uid);
-                  return (<Viewer
-                    index={index}
-                    images={projects[index].images}
-                    title={projects[index].title}
-                    description={projects[index].description}
-                    selectProject={this.selectProject}
-                  />);
-                }}
+      const index = this.getIndex(this.state.currentUid);
+      return (<>
+        <h1 className="title">
+          <Link to="/">{config.title}</Link>
+        </h1>
+        <Curtain pose={view === 'home' ? 'up' : 'down'} className="curtain" />
+
+        <div className="wrapper">
+          <ThumbnailWrapper
+            pose={view === 'home' ? 'visible' : 'hidden'}
+            className={`section section--home ${view === 'home' ? '-active' : ''}`}
+          >
+            <CursorProvider >
+              <ThumbnailContainer
+                titleSize={this.titleSize}
+                projects={projects}
+                selectProject={this.selectProject}
               />
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  <ThumbnailContainer projects={projects} selectProject={this.selectProject} />
-                }
+            </CursorProvider>
+          </ThumbnailWrapper>
+          <ViewerWrapper
+            className={`section section--viewer ${view === 'viewer' ? '-active' : ''}`}
+            pose={view === 'viewer' ? 'visible' : 'hidden'}
+          >
+            <CursorProvider>
+              <Viewer
+                index={index}
+                images={projects[index].images}
+                title={projects[index].title}
+                description={projects[index].description}
+                selectProject={this.selectProject}
               />
-            </Switch>
-          </CursorProvider>
-        </BrowserRouter>
+            </CursorProvider>
+          </ViewerWrapper>
+        </div>
+        </>
       );
     }
     return (
-      <div className="loading">Cassidy Villanos</div>
+      <div className="loading">{config.title}</div>
     );
   }
 }
 
-export default App;
+
+export default withRouter(App);

@@ -2,13 +2,13 @@
 @import 'styles/breakpoints.scss';
 
 .thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0px auto;
-  margin-top: 2.5rem;
-  justify-content: space-evenly;
+  @include full-centered;
+  word-wrap: break-word;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 2vw;
 
-  @include breakpoint(xs){
+  @include breakpoint(xs) {
     padding: $padding / 2;
   }
 }
