@@ -2,7 +2,7 @@ import React from 'react';
 import getImageSize from 'util/getImageSize';
 import config from 'config';
 import { RichText } from 'prismic-reactjs';
-import Thumbnail from 'components/Thumbnail/Thumbnail';
+import Title from 'components/Title/Title';
 import './ThumbnailContainer.scss';
 
 const Thumbnails = ({
@@ -11,7 +11,7 @@ const Thumbnails = ({
   const thumbnails = projects.map((result) => {
     const { uid, title } = result;
     return (
-      <Thumbnail
+      <Title
         title={RichText.asText(title)}
         image={getImageSize(result.images[0], config.thumbnailSize)}
         uid={uid}
