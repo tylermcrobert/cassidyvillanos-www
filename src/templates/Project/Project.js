@@ -4,7 +4,6 @@ import { graphql } from 'gatsby';
 import Layout from '../../components/Layout/Layout';
 
 export default ({ data }) => { //eslint-disable-line
-
   const imgurls = data.prismicProject.data.images
     .map(item => item.image.localFile.childImageSharp)
     .map(imageSizes => (
@@ -15,9 +14,8 @@ export default ({ data }) => { //eslint-disable-line
         ), {})
     ));
 
-  return <Project images={imgurls} />;
+  return <Project images={imgurls} title="test" />;
 };
-
 
 export const pageQuery = graphql`
   query pageQuery($uid: String!) {
@@ -51,13 +49,12 @@ export const pageQuery = graphql`
   }
 `;
 
-
 export function Project({ images, title }) {
   return (
     <Layout>
       <h1>{title}</h1>
-      {images.map(({ laptop }) =>
-        <img key={laptop} src={laptop} alt="" />)}
+      {images.map(({ thumbnail }) =>
+        <img key={thumbnail} src={thumbnail} alt="" />)}
     </Layout>
   );
 }
