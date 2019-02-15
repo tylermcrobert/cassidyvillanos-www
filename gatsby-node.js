@@ -16,24 +16,7 @@ exports.createPages = async ({ graphql, actions }) => {
           site_name
             projects{
               project{
-                document {
-                  uid
-                  data{
-                    title{
-                      text
-                    }
-                    images{
-                      image{
-                        localFile {
-                          relativePath
-                        }
-                        desktop{
-                          url
-                        }
-                      }
-                    }
-                  }
-                }
+                uid
               }
             }
           }
@@ -42,23 +25,14 @@ exports.createPages = async ({ graphql, actions }) => {
     `));
 
   if (!error) {
-    const projects = result.data.prismicSite.data.projects.map((item) => {
-      const projData = item.project.document[0];
-      return {
-        uid: projData.uid,
-        images: projData.data.images.map(img => img.image.desktop.url),
-        title: projData.data.title.text,
-        rawData: projData,
-      };
-    });
+    const uids = result.data.prismicSite.data.projects.map(item => item.project.uid);
 
-    projects.forEach(({ uid }, i) => {
+    uids.forEach((uid) => {
       createPage({
         path: uid,
         component: projectTemplate,
         context: {
-          pathSlug: uid,
-          data: projects[i],
+          uid,
         },
       });
     });
