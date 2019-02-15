@@ -24,7 +24,10 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                     images{
                       image{
-                        mobile{
+                        localFile {
+                          relativePath
+                        }
+                        desktop{
                           url
                         }
                       }
@@ -43,8 +46,9 @@ exports.createPages = async ({ graphql, actions }) => {
       const projData = item.project.document[0];
       return {
         uid: projData.uid,
-        images: projData.data.images.map(img => img.image.mobile.url),
+        images: projData.data.images.map(img => img.image.desktop.url),
         title: projData.data.title.text,
+        rawData: projData,
       };
     });
 
