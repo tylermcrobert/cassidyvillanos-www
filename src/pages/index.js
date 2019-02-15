@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
+import Index from '../components/Index/Index';
 
 export default () => {
   const projectsQuery = useStaticQuery(graphql`
@@ -17,7 +18,9 @@ export default () => {
                     }
                     images{
                       image{
-                        url
+                        mobile{
+                          url
+                        }
                       }
                     }
                   }
@@ -27,28 +30,17 @@ export default () => {
           }
         }
       }
+
   `).prismicSite.data.projects.map((item) => {
     const projData = item.project.document[0];
     return {
       uid: projData.uid,
-      image: projData.data.images[0].image.url,
+      image: projData.data.images[0].image.mobile.url,
       title: projData.data.title.text,
     };
   });
-
-  console.log(projectsQuery);
 
   return (
     <Index projects={projectsQuery} />
   );
 };
-
-
-function Index({ projects }) {
-  return projects.map(({ uid, image, title }) => (
-    <a key={uid} href={`#${uid}`}>
-      <img src={image} alt="" width={200} />
-      {title}
-    </a>
-  ));
-}
