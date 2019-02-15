@@ -11,10 +11,12 @@ const zIndex = {
 Styled.Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10vh;
 `;
 
 Styled.Overlay = styled.div`
@@ -30,19 +32,20 @@ Styled.Overlay = styled.div`
     height: 100%;
     width: 100%;
     transform: translate3d(-50%, -50%, 0);
+    display: ${props => (props.visible ? 'block' : 'none')}
   }
 `;
 
 Styled.Link = styled.a`
   position: relative;
-  display: inline-block;
   transition: color 300ms ease
   color: white;
   z-index: ${zIndex.textBg};
   font-size: calc(4vw + 4vh);
+  line-height: 1.2;
 
-  &::after {
-    content: ' / ';
+  &:not(:last-child)::after {
+    content:' / ';
   }
 
   &:hover {
