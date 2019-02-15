@@ -10,21 +10,23 @@ function Index({ projects }) {
   useMouseMover(overlayRef);
 
   return (
-    <div>
+    <>
       <Styled.Overlay ref={overlayRef}>
-        <img src={currentUrl} alt="" width={200} />
+        <img src={currentUrl} alt="" />
       </Styled.Overlay>
-      {projects.map(({ uid, image, title }) => (
-        <a
-          key={uid}
-          href={`#${uid}`}
-          onMouseEnter={() => setCurrentUrl(image)}
-          onMouseLeave={() => setCurrentUrl(null)}
-        >
-          {title}
-        </a>
+      <Styled.Container>
+        {projects.map(({ uid, image, title }) => (
+          <Styled.Link
+            key={uid}
+            href={`#${uid}`}
+            onMouseEnter={() => setCurrentUrl(image)}
+            onMouseLeave={() => setCurrentUrl(null)}
+          >
+            {title}
+          </Styled.Link>
       ))}
-    </div>
+      </Styled.Container>
+    </>
   );
 }
 
