@@ -53,8 +53,27 @@ export function Project({ images, title }) {
   return (
     <Layout>
       <h1>{title}</h1>
-      {images.map(({ thumbnail }) =>
-        <img key={thumbnail} src={thumbnail} alt="" />)}
+      {images.map(({
+       thumbnail,
+       mobile,
+       laptop,
+       desktop,
+       desktopXl,
+      }) => (
+        <img
+          srcSet={`
+            ${thumbnail} 420w,
+            ${mobile} 840w,
+            ${laptop} 1680w,
+            ${desktop} 2520w,
+            ${desktopXl} 2880w,
+          `}
+          sizes="75vw"
+          key={thumbnail}
+          src={thumbnail}
+          alt=""
+          width="100%"
+        />))}
     </Layout>
   );
 }
