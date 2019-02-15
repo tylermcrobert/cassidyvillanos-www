@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 const Styled = {};
 
@@ -36,7 +37,7 @@ Styled.Overlay = styled.div`
   }
 `;
 
-Styled.Link = styled.a`
+Styled.Link = styled(Link)`
   position: relative;
   transition: color 300ms ease
   color: white;

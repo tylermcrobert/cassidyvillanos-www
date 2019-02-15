@@ -20,7 +20,7 @@ function Index({ projects }) {
           {projects.map(({ uid, image, title }) => (
             <Styled.Link
               key={uid}
-              href={`#${uid}`}
+              to={`/${uid}`}
               onMouseEnter={() => setCurrentUrl(image)}
               onMouseLeave={() => setCurrentUrl(null)}
             >
