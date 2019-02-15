@@ -12,9 +12,16 @@
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.10.0",
     "gatsby": "^2.1.2",
+    "gatsby-plugin-react-helmet": "^3.0.6",
+    "gatsby-plugin-styled-components": "^3.0.5",
+    "gatsby-source-filesystem": "^2.0.20",
+    "gatsby-source-prismic": "^2.2.0",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1"
+    "react-dom": "^16.8.1",
+    "react-helmet": "^5.2.0",
+    "styled-components": "^4.1.3"
   },
   "repository": {
     "type": "git",
