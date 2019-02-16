@@ -39,7 +39,7 @@ Styled.Overlay = styled.div`
   }
 
   ${props => props.transitioning && css`
-    transition: 400ms transform cubic-bezier(.39,.575,.565,1);
+    transition: 500ms transform cubic-bezier(.39,.575,.565,1);
   `}
 
   ${props => props.page && css`
@@ -67,7 +67,7 @@ Styled.Link = styled(Link)`
 
   &:hover {
     color: white;
-    transition-delay: 400ms; /* keep white link around for a second */
+    transition-delay: 800ms; /* keep white link around for a second */
     z-index: ${zIndex.textFg};
 
     &::after {
