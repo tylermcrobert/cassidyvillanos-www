@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Layout from '../../components/Layout/Layout';
+import Styled from './styled';
 
 export default ({ data }) => { //eslint-disable-line
   const imgurls = data.prismicProject.data.images
@@ -50,30 +51,46 @@ export const pageQuery = graphql`
 `;
 
 export function Project({ images, title }) {
+  const [slide, setSlide] = useState(0);
+
+  const prevIndex = slide ? slide - 1 : images.length - 1;
+  const nextIndex = (slide + 1) % images.length;
+
+  const prevSlide = () => setSlide(prevIndex);
+  const nextSlide = () => setSlide(nextIndex);
+
   return (
     <Layout>
-      <h1>{title}</h1>
-      {images.map(({
+      <Styled.ProjectWrapper>
+        <Styled.ImageWrapper>
+          {images.map(({
        thumbnail,
        mobile,
        laptop,
        desktop,
        desktopXl,
-      }) => (
-        <img
-          srcSet={`
+     }, i) => (
+       <Styled.Image
+         srcSet={`
             ${thumbnail} 420w,
             ${mobile} 840w,
             ${laptop} 1680w,
             ${desktop} 2520w,
             ${desktopXl} 2880w,
           `}
-          sizes="75vw"
-          key={thumbnail}
-          src={thumbnail}
-          alt=""
-          width="100%"
-        />))}
+         sizes="75vw"
+         key={thumbnail}
+         src={thumbnail}
+         alt=""
+         current={slide === i}
+         width="100%"
+       />))}
+        </Styled.ImageWrapper>
+        <Styled.Bar>
+          <div onClick={prevSlide}>prev</div>
+          <div onClick={nextSlide}>next</div>
+        </Styled.Bar>
+      </Styled.ProjectWrapper>
     </Layout>
   );
 }
