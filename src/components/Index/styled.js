@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import TransitionLink from 'gatsby-plugin-transition-link';
+import { Link } from 'gatsby';
 
 
 const Styled = {};
@@ -32,6 +32,10 @@ Styled.Overlay = styled.div`
   top: -50%;
   padding: 5vw;
 
+  ${props => props.transitioning && css`
+    transition: 400ms transform ease-out;
+  `}
+
   img {
     object-fit: contain;
     height: 100%;
@@ -44,13 +48,18 @@ Styled.Overlay = styled.div`
   `}
 `;
 
-Styled.Link = styled(TransitionLink)`
+Styled.Link = styled(Link)`
   position: relative;
   transition: color 300ms ease
   color: white;
   z-index: ${zIndex.textBg};
   font-size: calc(4vw + 4vh);
   line-height: 1.2;
+  transition: 200ms opacity ease-out;
+
+  ${props => props.transitioning && css`
+    opacity: 0;
+  `}
 
   &:not(:last-child)::after {
     content:' / ';
@@ -58,6 +67,7 @@ Styled.Link = styled(TransitionLink)`
 
   &:hover {
     color: white;
+    transition-delay: 400ms; /* keep white link around for a second */
     z-index: ${zIndex.textFg};
 
     &::after {

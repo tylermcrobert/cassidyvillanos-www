@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function useMouseMover(node) {
+export default function useMouseMover(node, { enabled }) {
   let x = 0;
   let y = 0;
 
@@ -12,14 +12,22 @@ export default function useMouseMover(node) {
   function handleMouseMove(e) {
     x = e.clientX;
     y = e.clientY;
-    moveObject();
+    if (enabled) {
+      moveObject();
+    }
+  }
+
+  function removeEvent() {
+    window.removeEventListener('mousemove', handleMouseMove);
   }
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
 
     return (() => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      removeEvent();
     });
   });
+
+  return removeEvent;
 }
