@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Layout from '../../components/Layout/Layout';
 import Styled from './styled';
+import { Overlay } from '../../components/Index/styled';
 
 export default ({ data }) => { //eslint-disable-line
   const imgurls = data.prismicProject.data.images
@@ -62,7 +63,7 @@ export function Project({ images, title }) {
   return (
     <Layout>
       <Styled.ProjectWrapper>
-        <Styled.ImageWrapper>
+        <Overlay visible page>
           {images.map(({
        thumbnail,
        mobile,
@@ -85,7 +86,7 @@ export function Project({ images, title }) {
          current={slide === i}
          width="100%"
        />))}
-        </Styled.ImageWrapper>
+        </Overlay>
         <Styled.Bar>
           <div onClick={prevSlide}>prev</div>
           <div onClick={nextSlide}>next</div>
@@ -94,6 +95,7 @@ export function Project({ images, title }) {
     </Layout>
   );
 }
+
 
 Project.propTypes = {
   images: PropTypes.arrayOf(PropTypes.shape({

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'gatsby';
 
 const Styled = {};
@@ -25,16 +25,22 @@ Styled.Overlay = styled.div`
   pointer-events: none;
   z-index: ${zIndex.overlayImg};
   transition 200ms ease-out;
-  width: 80vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
+  left: -50%;
+  top: -50%;
+  padding: 5vw;
 
   img {
     object-fit: contain;
     height: 100%;
     width: 100%;
-    transform: translate3d(-50%, -50%, 0);
     display: ${props => (props.visible ? 'block' : 'none')}
   }
+
+  ${props => props.page && css`
+    transform: translate3d(50%, 50%, 0)
+  `}
 `;
 
 Styled.Link = styled(Link)`
@@ -59,4 +65,6 @@ Styled.Link = styled(Link)`
   }
 `;
 
+const { Overlay } = Styled;
+export { Overlay };
 export default Styled;
