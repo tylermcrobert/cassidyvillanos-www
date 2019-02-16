@@ -24,12 +24,8 @@ function Index({ projects }) {
 
   return (
     <Layout>
-      <Styled.Overlay
-        ref={overlayRef}
-        visible={currentUrl !== null}
-        transitioning={transitioning}
-      >
-        <img src={currentUrl} alt="" />
+      <Styled.Overlay ref={overlayRef} transitioning={transitioning} >
+        <Styled.HomeImage src={currentUrl} alt="" visible={currentUrl !== null} />
       </Styled.Overlay>
       <Styled.Container>
         <div>

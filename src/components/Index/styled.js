@@ -36,16 +36,16 @@ Styled.Overlay = styled.div`
     transition: 400ms transform ease-out;
   `}
 
-  img {
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
-    display: ${props => (props.visible ? 'block' : 'none')}
-  }
-
   ${props => props.page && css`
     transform: translate3d(50%, 50%, 0)
   `}
+`;
+
+Styled.HomeImage = styled.img`
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  display: ${props => (props.visible ? 'block' : 'none')}
 `;
 
 Styled.Link = styled(Link)`
