@@ -25,7 +25,7 @@ Styled.Overlay = styled.div`
   position: fixed;
   pointer-events: none;
   z-index: ${zIndex.overlayImg};
-  transition 200ms ease-out;
+  transition 200ms cubic-bezier(.39,.575,.565,1);
   width: 100vw;
   height: 100vh;
   left: -50%;
@@ -33,11 +33,11 @@ Styled.Overlay = styled.div`
   padding: 5vw;
 
   ${props => props.transitioning && css`
-    transition: 400ms transform ease-out;
+    transition: 400ms transform cubic-bezier(.39,.575,.565,1);
   `}
 
   ${props => props.page && css`
-    transform: translate3d(50%, 50%, 0)
+    transform: translate3d(50%, 50%, 0) scale(1)
   `}
 `;
 
@@ -55,7 +55,7 @@ Styled.Link = styled(Link)`
   z-index: ${zIndex.textBg};
   font-size: calc(4vw + 4vh);
   line-height: 1.2;
-  transition: 200ms opacity ease-out;
+  transition: 200ms opacity cubic-bezier(.39,.575,.565,1);
 
   ${props => props.transitioning && css`
     opacity: 0;

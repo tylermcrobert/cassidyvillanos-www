@@ -6,7 +6,7 @@ export default function useMouseMover(node, { enabled }) {
 
   function moveObject() {
     const overlay = node.current;
-    overlay.style.transform = `translate3d(${x}px ,${y}px, 0)`;
+    overlay.style.transform = `translate3d(${x}px ,${y}px, 0) scale(.95)`;
   }
 
   function handleMouseMove(e) {
