@@ -4,9 +4,10 @@ import { navigate } from 'gatsby';
 import useMouseMover from '../../hooks/useMouseMover';
 import Styled from './styled';
 import Layout from '../Layout/Layout';
+import ResponsiveImg from '../../components/ResponsiveImg/ResponsiveImg';
 
 function Index({ projects }) {
-  const [currentUrl, setCurrentUrl] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const overlayRef = useRef();
 
@@ -21,20 +22,20 @@ function Index({ projects }) {
       navigate(`/${uid}/`);
     }, 1000);
   }
-
+  console.log(projects[0].imageRes);
   return (
     <Layout>
       <Styled.Overlay ref={overlayRef} transitioning={transitioning} >
-        <Styled.HomeImage src={currentUrl} alt="" visible={currentUrl !== null} />
+        {currentIndex && <ResponsiveImg data={projects[currentIndex].imageRes} />}
       </Styled.Overlay>
       <Styled.Container>
         <div>
-          {projects.map(({ uid, image, title }) => (
+          {projects.map(({ uid, title }, i) => (
             <Styled.Link
               key={uid}
               to={`/${uid}`}
-              onMouseEnter={() => !transitioning && setCurrentUrl(image)}
-              onMouseLeave={() => !transitioning && setCurrentUrl(null)}
+              onMouseEnter={() => !transitioning && setCurrentIndex(i)}
+              onMouseLeave={() => !transitioning && setCurrentIndex(null)}
               onClick={e => transition(e, uid)}
               transitioning={transitioning}
             >

@@ -25,25 +25,7 @@ export const pageQuery = graphql`
       data {
         images {
           image {
-            localFile {
-              childImageSharp {
-                thumbnail: resize(width: 420, quality: 80) {
-                  src
-                }
-                mobile: fixed(width: 840, quality: 80) {
-                  src
-                }
-                laptop: fixed(width: 1680, quality: 80) {
-                  src
-                }
-                desktop: fixed(width: 2520, quality: 80) {
-                  src
-                }
-                desktopXl: fixed(width: 2880, quality: 80) {
-                  src
-                }
-              }
-            }
+            ...responsive
           }
         }
       }
@@ -63,7 +45,7 @@ export function Project({ images, title }) {
   return (
     <Layout>
       <Styled.ProjectWrapper>
-        <Overlay visible page>
+        <Overlay page>
           {images.map(({
        thumbnail,
        mobile,

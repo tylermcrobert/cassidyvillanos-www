@@ -32,6 +32,12 @@ Styled.Overlay = styled.div`
   top: -50%;
   padding: 5vw;
 
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+
   ${props => props.transitioning && css`
     transition: 400ms transform cubic-bezier(.39,.575,.565,1);
   `}
@@ -41,12 +47,6 @@ Styled.Overlay = styled.div`
   `}
 `;
 
-Styled.HomeImage = styled.img`
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
-  display: ${props => (props.visible ? 'block' : 'none')}
-`;
 
 Styled.Link = styled(Link)`
   position: relative;
