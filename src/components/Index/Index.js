@@ -22,11 +22,11 @@ function Index({ projects }) {
       navigate(`/${uid}/`);
     }, 1000);
   }
-  console.log(projects[0].imageRes);
+
   return (
     <Layout>
       <Styled.Overlay ref={overlayRef} transitioning={transitioning} >
-        {currentIndex && <ResponsiveImg data={projects[currentIndex].imageRes} />}
+        {currentIndex !== null && <ResponsiveImg data={projects[currentIndex].imageRes} />}
       </Styled.Overlay>
       <Styled.Container>
         <div>
