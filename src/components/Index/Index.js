@@ -23,6 +23,9 @@ function Index({ projects }) {
               to={`/${uid}`}
               onMouseEnter={() => setCurrentUrl(image)}
               onMouseLeave={() => setCurrentUrl(null)}
+              exit={{
+                length: 1,
+              }}
             >
               {title}
             </Styled.Link>

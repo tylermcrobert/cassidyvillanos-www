@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'gatsby';
+import TransitionLink from 'gatsby-plugin-transition-link';
+
 
 const Styled = {};
 
@@ -43,7 +44,7 @@ Styled.Overlay = styled.div`
   `}
 `;
 
-Styled.Link = styled(Link)`
+Styled.Link = styled(TransitionLink)`
   position: relative;
   transition: color 300ms ease
   color: white;
