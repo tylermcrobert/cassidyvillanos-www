@@ -9,48 +9,60 @@ import ResponsiveImg from '../../components/ResponsiveImg/ResponsiveImg';
 function Index({ projects }) {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
+  const [currentUid, setCurrentUid] = useState(false);
+
   const overlayRef = useRef();
+  const slowMove = useRef();
 
   useMousePos(({ x, y }) => {
-    const transformVal = `translate3d(${x}px ,${y}px, 0) scale(.8)`;
-    overlayRef.current.style.transform = transformVal;
-  }, { enabled: !transitioning });
+    if (!transitioning) {
+      const transformVal = `translate3d(${x}px ,${y}px, 0) scale(.8)`;
+      overlayRef.current.style.transform = transformVal;
+    }
+  });
 
   useMousePos(({ x, y }) => {
-    console.log(x, y);
-  }, { enabled: true });
+    const offsetX = (x / (window.innerWidth / 2)) * 0.6;
+    const offsetY = (y / (window.innerHeight / 2)) * 0.6;
+    const transformVal = `translate3d(${offsetX}% ,${offsetY}%, 0)`;
+    slowMove.current.style.transform = transformVal;
+  });
+
+  function centerOverlay() {
+    overlayRef.current.style.transform = 'translate3d(50%, 50%, 0) scale(.8)';
+  }
 
   function transition(e, uid) {
     e.preventDefault();
     setTransitioning(true);
-    overlayRef.current.style.transform = 'translate3d(50%, 50%, 0) scale(.8)';
-
-    setTimeout(() => {
-      navigate(`/${uid}/`);
-    }, 300);
+    centerOverlay();
+    setCurrentUid(uid);
   }
+
+  console.log(currentUid);
 
   return (
     <Layout>
-      <Styled.Overlay ref={overlayRef} transitioning={transitioning} >
-        {currentIndex !== null && <ResponsiveImg data={projects[currentIndex].imageRes} />}
-      </Styled.Overlay>
-      <Styled.Container>
-        <div>
-          {projects.map(({ uid, title }, i) => (
-            <Styled.Link
-              key={uid}
-              to={`/${uid}`}
-              onMouseEnter={() => !transitioning && setCurrentIndex(i)}
-              onMouseLeave={() => !transitioning && setCurrentIndex(null)}
-              onClick={e => transition(e, uid)}
-              transitioning={transitioning}
-            >
-              {title}
-            </Styled.Link>
+      <div ref={slowMove}>
+        <Styled.Overlay ref={overlayRef} transitioning={transitioning} >
+          {currentIndex !== null && <ResponsiveImg data={projects[currentIndex].imageRes} />}
+        </Styled.Overlay>
+        <Styled.Container>
+          <div>
+            {projects.map(({ uid, title }, i) => (
+              <Styled.Link
+                key={uid}
+                onMouseEnter={() => !transitioning && setCurrentIndex(i)}
+                onMouseLeave={() => !transitioning && setCurrentIndex(null)}
+                onClick={e => transition(e, uid)}
+                transitioning={transitioning}
+              >
+                {title}
+              </Styled.Link>
           ))}
-        </div>
-      </Styled.Container>
+          </div>
+        </Styled.Container>
+      </div>
     </Layout>
   );
 }

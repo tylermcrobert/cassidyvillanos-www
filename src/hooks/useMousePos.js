@@ -1,16 +1,8 @@
 import { useEffect } from 'react';
 
-export default function useMouseMover(callback, { enabled }) {
-  let x = 0;
-  let y = 0;
-
-
+export default function useMouseMover(callback) {
   function handleMouseMove(e) {
-    x = e.clientX;
-    y = e.clientY;
-    if (enabled) {
-      callback({ x, y });
-    }
+    callback({ x: e.clientX, y: e.clientY });
   }
 
   function removeEvent() {
