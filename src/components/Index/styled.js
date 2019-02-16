@@ -24,7 +24,7 @@ Styled.Overlay = styled.div`
   position: fixed;
   pointer-events: none;
   z-index: ${zIndex.overlayImg};
-  transform 200ms ease-out;
+  transition 200ms ease-out;
   width: 80vw;
   height: 80vh;
 
