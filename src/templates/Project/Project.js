@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import posed from 'react-pose';
 import Layout from '../../components/Layout/Layout';
 import Styled from './styled';
 import { Overlay } from '../../components/Index/styled';
@@ -45,7 +46,7 @@ export function Project({ images, title }) {
   return (
     <Layout>
       <Styled.ProjectWrapper>
-        <Overlay page>
+        <PosedWrapper page pose="normal" initialPose="small">
           {images.map(({
        thumbnail,
        mobile,
@@ -68,7 +69,7 @@ export function Project({ images, title }) {
          current={slide === i}
          width="100%"
        />))}
-        </Overlay>
+        </PosedWrapper>
         <Styled.Bar>
           <div onClick={prevSlide}>prev</div>
           <div onClick={nextSlide}>next</div>
@@ -77,6 +78,15 @@ export function Project({ images, title }) {
     </Layout>
   );
 }
+
+const PosedWrapper = posed(Overlay)({
+  small: {
+    scale: 0.8, y: '50%', x: '50%', delay: 20, transition: { ease: [0.39, 0.575, 0.565, 1], duration: 200 },
+  },
+  normal: {
+    scale: 1, y: '50%', x: '50%', delay: 20, transition: { ease: [0.39, 0.575, 0.565, 1], duration: 200 },
+  },
+});
 
 
 Project.propTypes = {

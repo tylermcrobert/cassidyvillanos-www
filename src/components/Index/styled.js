@@ -37,21 +37,11 @@ Styled.Overlay = styled.div`
     height: 100%;
     width: 100%;
   }
-
-  ${props => props.transitioning && css`
-    transition: 500ms transform cubic-bezier(.39,.575,.565,1);
-  `}
-
-  ${props => props.page && css`
-    transform: translate3d(50%, 50%, 0) scale(1)
-  `}
 `;
 
 
 Styled.Link = styled(Link)`
   position: relative;
-  transition: color 300ms ease
-  color: white;
   z-index: ${zIndex.textBg};
   font-size: calc(4vw + 4vh);
   line-height: 1.2;
@@ -67,7 +57,7 @@ Styled.Link = styled(Link)`
 
   &:hover {
     color: white;
-    transition-delay: 800ms; /* keep white link around for a second */
+    transition-delay: ${props => props.transitioning && '800ms'};
     z-index: ${zIndex.textFg};
 
     &::after {

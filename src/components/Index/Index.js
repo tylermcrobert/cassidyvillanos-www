@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
-import useMouseMover from '../../hooks/useMouseMover';
+import useMousePos from '../../hooks/useMousePos';
 import Styled from './styled';
 import Layout from '../Layout/Layout';
 import ResponsiveImg from '../../components/ResponsiveImg/ResponsiveImg';
@@ -11,16 +11,23 @@ function Index({ projects }) {
   const [transitioning, setTransitioning] = useState(false);
   const overlayRef = useRef();
 
-  useMouseMover(overlayRef, { enabled: !transitioning });
+  useMousePos(({ x, y }) => {
+    const transformVal = `translate3d(${x}px ,${y}px, 0) scale(.8)`;
+    overlayRef.current.style.transform = transformVal;
+  }, { enabled: !transitioning });
+
+  useMousePos(({ x, y }) => {
+    console.log(x, y);
+  }, { enabled: true });
 
   function transition(e, uid) {
     e.preventDefault();
     setTransitioning(true);
-    overlayRef.current.style.transform = 'translate3d(50%, 50%, 0)';
+    overlayRef.current.style.transform = 'translate3d(50%, 50%, 0) scale(.8)';
 
     setTimeout(() => {
       navigate(`/${uid}/`);
-    }, 1000);
+    }, 300);
   }
 
   return (
@@ -51,7 +58,6 @@ function Index({ projects }) {
 Index.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.shape({
     uid: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired).isRequired,
 };
