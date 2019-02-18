@@ -26,4 +26,21 @@ Styled.ProjectWrapper = styled.div`
   flex-direction: column;
 `;
 
+const navItem = `
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  cursor: pointer;
+`;
+
+Styled.Next = styled.div`
+  ${navItem}
+  left: 50%;
+`;
+
+Styled.Prev = styled.div`
+  ${navItem}
+`;
+
 export default Styled;

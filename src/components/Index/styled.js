@@ -25,12 +25,15 @@ Styled.Overlay = styled.div`
   position: fixed;
   pointer-events: none;
   z-index: ${zIndex.overlayImg};
-  transition 200ms cubic-bezier(.39,.575,.565,1);
   width: 100vw;
   height: 100vh;
   left: -50%;
   top: -50%;
   padding: 5vw;
+
+  ${props => !props.page && `
+    transition 200ms cubic-bezier(.39,.575,.565,1);
+  `}
 
   img {
     object-fit: contain;

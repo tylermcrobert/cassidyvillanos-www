@@ -46,7 +46,7 @@ export function Project({ images, title }) {
   return (
     <Layout>
       <Styled.ProjectWrapper>
-        <PosedWrapper page pose="normal" initialPose="small">
+        <PosedOverlay page pose="normal" initialPose="small">
           {images.map(({
        thumbnail,
        mobile,
@@ -64,27 +64,41 @@ export function Project({ images, title }) {
           `}
          sizes="75vw"
          key={thumbnail}
-         src={thumbnail}
+         fixed={thumbnail}
          alt=""
          current={slide === i}
          width="100%"
        />))}
-        </PosedWrapper>
+        </PosedOverlay>
         <Styled.Bar>
-          <div onClick={prevSlide}>prev</div>
-          <div onClick={nextSlide}>next</div>
+          <Styled.Prev onClick={prevSlide} />
+          <Styled.Next onClick={nextSlide} />
         </Styled.Bar>
       </Styled.ProjectWrapper>
     </Layout>
   );
 }
 
-const PosedWrapper = posed(Overlay)({
+const PosedOverlay = posed(Overlay)({
   small: {
-    scale: 0.8, y: '50%', x: '50%', delay: 20, transition: { ease: [0.39, 0.575, 0.565, 1], duration: 200 },
+    scale: 0.8,
+    y: '50%',
+    x: '50%',
+    delay: 20,
+    transition: {
+      ease: [0.39, 0.575, 0.565, 1],
+      duration: 175,
+    },
   },
   normal: {
-    scale: 1, y: '50%', x: '50%', delay: 20, transition: { ease: [0.39, 0.575, 0.565, 1], duration: 200 },
+    scale: 1,
+    y: '50%',
+    x: '50%',
+    delay: 20,
+    transition: {
+      ease: [0.39, 0.575, 0.565, 1],
+      duration: 175,
+    },
   },
 });
 
