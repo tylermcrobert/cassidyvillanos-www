@@ -16,10 +16,6 @@ function Index({ projects }) {
     overlayRef.current.style.transform = transformVal;
   }, { enabled: !transitioning });
 
-  useMousePos(({ x, y }) => {
-    console.log(x, y);
-  }, { enabled: true });
-
   function transition(e, uid) {
     e.preventDefault();
     setTransitioning(true);
@@ -27,7 +23,7 @@ function Index({ projects }) {
 
     setTimeout(() => {
       navigate(`/${uid}/`);
-    }, 300);
+    }, 450);
   }
 
   return (

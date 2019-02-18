@@ -35,6 +35,10 @@ Styled.Overlay = styled.div`
     transition 200ms cubic-bezier(.39,.575,.565,1);
   `}
 
+  ${props => props.transitioning && `
+    transition 300ms cubic-bezier(.39,.575,.565,1);
+  `}
+
   img {
     object-fit: contain;
     height: 100%;
