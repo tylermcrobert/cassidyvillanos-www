@@ -17,13 +17,16 @@ export default ({ data }) => { //eslint-disable-line
         ), {})
     ));
 
-  return <Project images={imgurls} title="test" />;
+  return <Project images={imgurls} title={data.prismicProject.data.title.text} />;
 };
 
 export const pageQuery = graphql`
   query pageQuery($uid: String!) {
     prismicProject(uid: {eq: $uid}) {
       data {
+        title{
+          text
+        }
         images {
           image {
             ...responsive
@@ -44,7 +47,7 @@ export function Project({ images, title }) {
   const nextSlide = () => setSlide(nextIndex);
 
   return (
-    <Layout>
+    <Layout title={title}>
       <Styled.ProjectWrapper>
         <PosedOverlay page pose="normal" initialPose="small">
           {images.map(({
